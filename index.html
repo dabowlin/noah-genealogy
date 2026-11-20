@@ -249,7 +249,7 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 .yx .bend{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:2px}
 .yx .routes{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px}
 .yx .routes h2{font:700 20px var(--serif);margin:0}
-.yx .maps{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:12px;align-items:start}
+.yx .maps{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
 .yx .map{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line);cursor:zoom-in;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .yx .map.zd{cursor:grab;touch-action:none} .yx .map.zd:active{cursor:grabbing}
 .yx .mapbox{position:relative;min-width:0}
@@ -270,9 +270,11 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 .yx .map text{fill:var(--fg);font-size:calc(var(--fs)*1px/var(--zs,1))}
 .yx .map .rg{fill:var(--muted);font-style:italic}
 .yx .map .box{fill:none;stroke:var(--muted);stroke-dasharray:4 3}
+.yx .map .sea,.yx .map .box{vector-effect:non-scaling-stroke}
+.yx .map .cz{display:none} .yx .map.zl .cz{display:inline} .yx .map.zl .zo{display:none}
 .yx .map .rt{fill:none;stroke-width:calc(2.6px/var(--zs,1));stroke-linecap:round}
-.yx .map .pl{fill:var(--panel);stroke:var(--fg);stroke-width:calc(1.5px/var(--zs,1));r:calc(var(--pr)*1px/var(--zs,1))}
-.yx .map .ring{fill:none;stroke:var(--fg);stroke-width:calc(2px/var(--zs,1));r:calc(var(--pr)*2.6px/var(--zs,1))}
+.yx .map .pl{fill:var(--panel);stroke:var(--fg);stroke-width:calc(1.5px/var(--zs,1))}
+.yx .map .ring{fill:none;stroke:var(--fg);stroke-width:calc(2px/var(--zs,1))}
 @media (prefers-reduced-motion:no-preference){.yx .map .rt{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .45s ease forwards}}
 @keyframes draw{to{stroke-dashoffset:0}}
 .yx .stops{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px 16px}
@@ -420,10 +422,10 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
   <section id="view-route" role="tabpanel" aria-labelledby="tab-route" hidden>
 <div class="yx">
 <div class="routes" id="a-route">
-    <div class="rhead"><h2 id="rh">亞伯蘭之後的遷移路線</h2><button class="wbtn" id="wbtn" data-w="1" aria-pressed="false">地圖放大顯示</button></div>
+    <h2 id="rh">亞伯蘭之後的遷移路線</h2>
     <div class="seg-btns" id="pbtn"></div>
-    <div class="maps" id="maps"><div class="mapbox"><div id="mbig"></div><div class="zc" role="group" aria-label="全區地圖縮放"><button data-z="mbig:in" aria-label="放大">＋</button><button data-z="mbig:out" aria-label="縮小">−</button><button class="zr" data-z="mbig:reset" aria-label="還原">還原</button></div></div><div class="mapbox"><div id="mzoom"></div><div class="zc" role="group" aria-label="迦南地圖縮放"><button data-z="mzoom:in" aria-label="放大">＋</button><button data-z="mzoom:out" aria-label="縮小">−</button><button class="zr" data-z="mzoom:reset" aria-label="還原">還原</button></div></div></div>
-    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。左圖是全區，右圖放大迦南；點下面的站可以在地圖上標出來。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
+    <div class="maps" id="maps"><div class="mapbox"><div id="mbig"></div><div class="zc" role="group" aria-label="全區地圖縮放"><button data-z="mbig:in" aria-label="放大">＋</button><button data-z="mbig:out" aria-label="縮小">−</button><button class="zr" data-z="mbig:reset" aria-label="還原">還原</button></div></div></div>
+    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。迦南一帶地名很密，點虛線框（或按 ＋）放大後才會顯示地名；點下面的站可以在地圖上標出來。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
     <ol class="stops" id="stops"></ol>
   </div>
 </div>
@@ -893,7 +895,6 @@ document.addEventListener('click',e=>{
   if(b.dataset.f){const f=b.dataset.f;open.has(f)?open.delete(f):open.add(f);render();return}
   if(b.dataset.b){const f='b-'+b.dataset.b;open.has(f)?open.delete(f):open.add(f);render();return}
   if(b.dataset.z){const[i,a]=b.dataset.z.split(':'),id=i==='mbig'?'big':'zoom';if(a==='reset'){VW[id]=null;applyV(id)}else zoomAt(id,a==='in'?1.6:1/1.6,.5,.5);return}
-  if(b.dataset.w){const w=document.getElementById('maps').classList.toggle('wide');b.setAttribute('aria-pressed',w);b.textContent=w?'地圖並排顯示':'地圖放大顯示';return}
   if(b.dataset.p){rp=b.dataset.p;rs=-1;renderMap();return}
   if(b.dataset.s!==undefined){const v=+b.dataset.s;rs=rs===v?-1:v;renderMap(true);return}
   if(b.dataset.m){mode=b.dataset.m;try{localStorage.setItem('yg-mode',mode)}catch(e){}render();return}
@@ -926,7 +927,7 @@ function mapSVG(id){
   const pts=a=>a.map(p=>pr(p[0],p[1]).map(v=>v.toFixed(1)).join(',')).join(' ');
   const txt=(lo,la,t,cls='',anchor='start',dx=0)=>{const[x,y]=pr(lo,la);return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" dx="${(dx/fs).toFixed(2)}em" dy=".35em" font-size="${fs}" text-anchor="${anchor}" class="${cls}">${t}</text>`};
   const people=rp==='all'?Object.keys(RT):[rp];
-  let s=`<svg class="map" style="--fs:${fs};--pr:${id==='big'?3.5:4.5}" viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" role="img" aria-label="${id==='big'?'全區地圖':'迦南放大地圖'}"><defs>`;
+  let s=`<svg class="map" style="--fs:15" viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" role="img" aria-label="${id==='big'?'全區地圖':'迦南放大地圖'}"><defs>`;
   people.forEach(p=>{const c=RT[p].c;s+=`<marker id="ar-${id}-${p}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" style="fill:var(--${c})"/></marker>`});
   s+=`</defs><rect class="land" width="${W}" height="${H}"/>`;
   WATER.forEach(a=>s+=`<polygon class="sea" points="${pts(a)}"/>`);
@@ -934,8 +935,8 @@ function mapSVG(id){
   RIVERS.forEach(a=>s+=`<polyline class="river" points="${pts(a)}"/>`);
   if(id==='big'){
     const z=MAPS.zoom,[x0,y0]=pr(z.lon0,z.lat1),[x1,y1]=pr(z.lon1,z.lat0);
-    s+=`<rect class="box" x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}"/>`;
-    s+=txt(31.2,34.3,'大海（地中海）','rg')+txt(40.2,34.6,'幼發拉底河','rg')+txt(44.6,35.2,'底格里斯河','rg')+txt(z.lon0,z.lat0-.45,'迦南（右圖放大）','rg');
+    s+=`<rect class="box zo" x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}"/>`;
+    s+=txt(31.2,34.3,'大海（地中海）','rg')+txt(40.2,34.6,'幼發拉底河','rg')+txt(44.6,35.2,'底格里斯河','rg')+txt(z.lon0,z.lat0-.45,'迦南（點框放大）','rg zo')+txt(35.66,31.45,'死海','rg cz')+txt(35.7,32.82,'加利利海','rg cz')+txt(35.6,32.0,'約但河','rg cz');
   }else{
     s+=txt(34.25,32.75,'大海','rg')+txt(35.66,31.45,'死海','rg')+txt(35.7,32.82,'加利利海','rg')+txt(35.6,32.0,'約但河','rg')+txt(36.35,33.62,'往大馬士革、哈蘭 ↗','rg','end')+txt(34.25,30.88,'↙ 往埃及','rg');
   }
@@ -950,9 +951,9 @@ function mapSVG(id){
   Object.keys(nums).forEach(k=>{const q=PL[k],[x,y]=pr(q[1],q[2]);
     if(x<0||y<0||x>W||y>H)return;
     s+=`<circle class="pl" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${id==='big'?3.5:4.5}"/>`;
-    if(id==='big'&&inZoom(k))return;
+    const cz=inZoom(k)?'cz':'';
     const lab=q[0]+(rp==='all'?'':' '+nums[k].join('·'));
-    s+=q[3]==='l'?txt(q[1],q[2],lab,'','end',-8):txt(q[1],q[2],lab,'','start',8);
+    s+=q[3]==='l'?txt(q[1],q[2],lab,cz,'end',-8):txt(q[1],q[2],lab,cz,'start',8);
   });
   if(rs>=0&&rp!=='all'){const k=RT[rp].stops[rs][0],[x,y]=pr(PL[k][1],PL[k][2]);s+=`<circle class="ring" cx="${x}" cy="${y}" r="${id==='big'?9:12}" style="stroke:var(--${RT[rp].c})"/>`}
   return s+'</svg>';
@@ -960,22 +961,25 @@ function mapSVG(id){
 function renderMap(keepMaps){
   document.getElementById('pbtn').innerHTML=[...Object.entries(RT).map(([k,v])=>[k,v.name]),['all','三人一起看']].map(([k,t])=>`<button data-p="${k}" aria-pressed="${k===rp}">${t}</button>`).join('');
   document.getElementById('mbig').innerHTML=mapSVG('big');
-  document.getElementById('mzoom').innerHTML=mapSVG('zoom');
-  applyV('big');applyV('zoom');
+  applyV('big');
   if(keepMaps)document.querySelectorAll('.map .rt').forEach(p=>p.style.animation='none');
   const people=rp==='all'?Object.keys(RT):[rp];
   document.getElementById('stops').innerHTML=people.map(p=>`${people.length>1?`<h3 style="color:var(--${RT[p].c})">${RT[p].name}</h3>`:''}`+RT[p].stops.map((st,i)=>`<li><button class="stop${rp===p&&rs===i?' on':''}" ${people.length>1?'':`data-s="${i}"`} style="--c:var(--${RT[p].c})"><span class="n">${i+1}</span><span><b>${PL[st[0]][0]}</b><span>${st[1]}</span><small>${st[2]}</small></span></button></li>`).join('')).join('');
 }
 /* 地圖縮放：改 viewBox；字和線只放大一半的倍率，擠在一起的地名才分得開 */
-const VW={big:null,zoom:null},ZMAX=8;
+const VW={big:null},ZMAX=12;
 const fullV=id=>{const m=MAPS[id];return{x:0,y:0,w:(m.lon1-m.lon0)*m.k,h:(m.lat1-m.lat0)*m.k}};
 const boxOf=id=>document.getElementById(id==='big'?'mbig':'mzoom');
 function applyV(id){
   const F=fullV(id),v=VW[id]||F,el=boxOf(id).querySelector('svg');if(!el)return;
   const z=F.w/v.w,zd=z>1.01;
   el.setAttribute('viewBox',`${v.x.toFixed(2)} ${v.y.toFixed(2)} ${v.w.toFixed(2)} ${v.h.toFixed(2)}`);
-  el.style.setProperty('--zs',Math.sqrt(z).toFixed(3));
-  el.classList.toggle('zd',zd);
+  /* 字、線、圓點以螢幕像素為準：放大時只跟著變大一點，地名才分得開 */
+  const ppu=(el.getBoundingClientRect().width||F.w)/F.w,zs=ppu*Math.pow(z,.85);
+  el.style.setProperty('--zs',zs.toFixed(3));
+  el.querySelectorAll('.pl').forEach(c=>c.setAttribute('r',(4/zs).toFixed(2)));
+  el.querySelectorAll('.ring').forEach(c=>c.setAttribute('r',(11/zs).toFixed(2)));
+  el.classList.toggle('zd',zd);el.classList.toggle('zl',ppu*z*MAPS.big.k>=105);
   const zc=boxOf(id).parentNode.querySelectorAll('.zc button');
   zc[0].disabled=z>=ZMAX-.01;zc[1].disabled=!zd;zc[2].disabled=!zd;
 }
@@ -985,7 +989,7 @@ function setV(id,x,y,w){
   VW[id]=w>=F.w-.01?null:{x,y,w,h};applyV(id);
 }
 function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.max(F.w/ZMAX,v.w/f)),h=w*F.h/F.w;setV(id,v.x+(v.w-w)*px,v.y+(v.h-h)*py,w)}
-['big','zoom'].forEach(id=>{
+['big'].forEach(id=>{
   const box=boxOf(id),pts=new Map();let last=null;
   const frac=e=>{const r=box.querySelector('svg').getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height,r]};
   box.addEventListener('wheel',e=>{if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();const[px,py]=frac(e);zoomAt(id,Math.exp(-e.deltaY*(e.deltaMode?0.05:0.01)),px,py)},{passive:false});
@@ -1002,6 +1006,14 @@ function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.ma
     }
     last={n:p.length,cx,cy,d};
   });
+  box.addEventListener('click',e=>{
+    if(VW[id]||e.target.closest('button'))return;
+    const m=MAPS.big,c=MAPS.zoom,F=fullV(id),[fx,fy]=frac(e),lo=m.lon0+fx*(m.lon1-m.lon0),la=m.lat1-fy*(m.lat1-m.lat0);
+    if(lo<c.lon0||lo>c.lon1||la<c.lat0||la>c.lat1)return;
+    const r0=box.querySelector('svg').getBoundingClientRect(),w=Math.min((c.lat1-c.lat0+.2)*m.k*F.w/F.h,r0.width/115*m.k),h=w*F.h/F.w;
+    setV(id,((c.lon0+c.lon1)/2-m.lon0)*m.k-w/2,(m.lat1-(c.lat0+c.lat1)/2)*m.k-h/2,w);
+  });
+  if(window.ResizeObserver)new ResizeObserver(()=>applyV(id)).observe(box);
   const up=e=>{pts.delete(e.pointerId);last=null};
   box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);
 });
