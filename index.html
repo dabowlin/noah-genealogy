@@ -275,7 +275,11 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 .yx .map .rt{fill:none;stroke-width:calc(2.6px/var(--zs,1));stroke-linecap:round}
 .yx .map .pl{fill:var(--panel);stroke:var(--fg);stroke-width:calc(1.5px/var(--zs,1))}
 .yx .map .ring{fill:none;stroke:var(--fg);stroke-width:calc(2px/var(--zs,1))}
-@media (prefers-reduced-motion:no-preference){.yx .map .rt{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .45s ease forwards}}
+.yx .map .rt{stroke-dasharray:1}
+.yx .map .rt:not(.dn){marker-end:none}
+.yx .map .mv{stroke:var(--fg);stroke-width:calc(2px/var(--zs,1));pointer-events:none}
+.yx .zc .za{font-size:11px;letter-spacing:1px}
+.yx .stop.now{background:var(--line);box-shadow:inset 3px 0 0 var(--c)}
 @keyframes draw{to{stroke-dashoffset:0}}
 .yx .stops{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px 16px}
 .yx .stops h3{grid-column:1/-1;margin:6px 0 0;font-size:14px}
@@ -424,8 +428,8 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 <div class="routes" id="a-route">
     <h2 id="rh">亞伯蘭之後的遷移路線</h2>
     <div class="seg-btns" id="pbtn"></div>
-    <div class="maps" id="maps"><div class="mapbox"><div id="mbig"></div><div class="zc" role="group" aria-label="全區地圖縮放"><button data-z="mbig:in" aria-label="放大">＋</button><button data-z="mbig:out" aria-label="縮小">−</button><button class="zr" data-z="mbig:reset" aria-label="還原">還原</button></div></div></div>
-    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。迦南一帶地名很密，點虛線框（或按 ＋）放大後才會顯示地名；點下面的站可以在地圖上標出來。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
+    <div class="maps" id="maps"><div class="mapbox"><div id="mbig"></div><div class="zc" role="group" aria-label="全區地圖縮放"><button data-z="mbig:in" aria-label="放大">＋</button><button data-z="mbig:out" aria-label="縮小">−</button><button class="zr" data-z="mbig:reset" aria-label="還原">還原</button><button class="za" data-a="1" aria-label="暫停動畫">❚❚</button></div></div></div>
+    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。迦南一帶地名很密，點虛線框（或按 ＋）放大後才會顯示地名；點下面的站可以在地圖上標出來。路線會自動從起點走到終點、循環播放，右上角 ❚❚ 可以暫停。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
     <ol class="stops" id="stops"></ol>
   </div>
 </div>
@@ -894,6 +898,7 @@ document.addEventListener('click',e=>{
   if(b.dataset.k){sel=b.dataset.k;render();return}
   if(b.dataset.f){const f=b.dataset.f;open.has(f)?open.delete(f):open.add(f);render();return}
   if(b.dataset.b){const f='b-'+b.dataset.b;open.has(f)?open.delete(f):open.add(f);render();return}
+  if(b.dataset.a){animPaused=!animPaused;b.textContent=animPaused?'▶':'❚❚';b.setAttribute('aria-label',animPaused?'播放動畫':'暫停動畫');return}
   if(b.dataset.z){const[i,a]=b.dataset.z.split(':'),id=i==='mbig'?'big':'zoom';if(a==='reset'){VW[id]=null;applyV(id)}else zoomAt(id,a==='in'?1.6:1/1.6,.5,.5);return}
   if(b.dataset.p){rp=b.dataset.p;rs=-1;renderMap();return}
   if(b.dataset.s!==undefined){const v=+b.dataset.s;rs=rs===v?-1:v;renderMap(true);return}
@@ -944,7 +949,7 @@ function mapSVG(id){
   people.forEach(p=>{const st=RT[p].stops;for(let i=1;i<st.length;i++){if(st[i][0]===st[i-1][0])continue;
     const[a1,a2]=pr(PL[st[i-1][0]][1],PL[st[i-1][0]][2]),[b1,b2]=pr(PL[st[i][0]][1],PL[st[i][0]][2]);
     const dx=b1-a1,dy=b2-a2,cx=(a1+b1)/2-dy*.18,cy=(a2+b2)/2+dx*.18;
-    seq.push(`<path class="rt" pathLength="1" style="stroke:var(--${RT[p].c});animation-delay:${(seq.length*.12).toFixed(2)}s" marker-end="url(#ar-${id}-${p})" d="M${a1.toFixed(1)},${a2.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${b1.toFixed(1)},${b2.toFixed(1)}"/>`)}});
+    seq.push(`<path class="rt" data-i="${i}" pathLength="1" style="stroke:var(--${RT[p].c});animation-delay:${(seq.length*.12).toFixed(2)}s" marker-end="url(#ar-${id}-${p})" d="M${a1.toFixed(1)},${a2.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${b1.toFixed(1)},${b2.toFixed(1)}"/>`)}});
   s+=seq.join('');
   const nums={};people.forEach(p=>RT[p].stops.forEach((st,i)=>{(nums[st[0]]=nums[st[0]]||[]).push(i+1)}));
   const inZoom=k=>{const z=MAPS.zoom,q=PL[k];return q[1]>=z.lon0&&q[1]<=z.lon1&&q[2]>=z.lat0&&q[2]<=z.lat1};
@@ -956,12 +961,12 @@ function mapSVG(id){
     s+=q[3]==='l'?txt(q[1],q[2],lab,cz,'end',-8):txt(q[1],q[2],lab,cz,'start',8);
   });
   if(rs>=0&&rp!=='all'){const k=RT[rp].stops[rs][0],[x,y]=pr(PL[k][1],PL[k][2]);s+=`<circle class="ring" cx="${x}" cy="${y}" r="${id==='big'?9:12}" style="stroke:var(--${RT[rp].c})"/>`}
-  return s+'</svg>';
+  return s+'<circle class="mv" r="6" style="display:none"/></svg>';
 }
 function renderMap(keepMaps){
   document.getElementById('pbtn').innerHTML=[...Object.entries(RT).map(([k,v])=>[k,v.name]),['all','三人一起看']].map(([k,t])=>`<button data-p="${k}" aria-pressed="${k===rp}">${t}</button>`).join('');
   document.getElementById('mbig').innerHTML=mapSVG('big');
-  applyV('big');
+  applyV('big');startAnim();
   if(keepMaps)document.querySelectorAll('.map .rt').forEach(p=>p.style.animation='none');
   const people=rp==='all'?Object.keys(RT):[rp];
   document.getElementById('stops').innerHTML=people.map(p=>`${people.length>1?`<h3 style="color:var(--${RT[p].c})">${RT[p].name}</h3>`:''}`+RT[p].stops.map((st,i)=>`<li><button class="stop${rp===p&&rs===i?' on':''}" ${people.length>1?'':`data-s="${i}"`} style="--c:var(--${RT[p].c})"><span class="n">${i+1}</span><span><b>${PL[st[0]][0]}</b><span>${st[1]}</span><small>${st[2]}</small></span></button></li>`).join('')).join('');
@@ -979,6 +984,7 @@ function applyV(id){
   el.style.setProperty('--zs',zs.toFixed(3));
   el.querySelectorAll('.pl').forEach(c=>c.setAttribute('r',(4/zs).toFixed(2)));
   el.querySelectorAll('.ring').forEach(c=>c.setAttribute('r',(11/zs).toFixed(2)));
+  el.querySelectorAll('.mv').forEach(c=>c.setAttribute('r',(6.5/zs).toFixed(2)));
   el.classList.toggle('zd',zd);el.classList.toggle('zl',ppu*z*MAPS.big.k>=105);
   const zc=boxOf(id).parentNode.querySelectorAll('.zc button');
   zc[0].disabled=z>=ZMAX-.01;zc[1].disabled=!zd;zc[2].disabled=!zd;
@@ -1017,6 +1023,29 @@ function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.ma
   const up=e=>{pts.delete(e.pointerId);last=null};
   box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);
 });
+/* 路線動畫：一段一段從起點畫到終點，圓點跟著走，走完停一下再從頭循環 */
+let animTok=0,animPaused=false;
+const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function startAnim(){
+  const tok=++animTok,svg=boxOf('big').querySelector('svg');if(!svg)return;
+  const ps=[...svg.querySelectorAll('.rt')],mv=svg.querySelector('.mv');
+  const show=(p,f)=>{p.style.strokeDashoffset=1-f;p.style.visibility=f>0?'visible':'hidden';p.classList.toggle('dn',f>=1)};
+  let cur=-2;const mark=i=>{if(i===cur)return;cur=i;document.querySelectorAll('#stops .stop').forEach(b=>b.classList.toggle('now',b.dataset.s!==undefined&&+b.dataset.s===i))};
+  if(REDUCE||rs>=0||!ps.length){ps.forEach(p=>show(p,1));mv.style.display='none';mark(-1);return}
+  const SEG=1100,HOLD=450,END=2600,STEP=SEG+HOLD,L=ps.map(p=>p.getTotalLength()),total=ps.length*STEP+END,ease=u=>u*u*(3-2*u);
+  let t=0,last=performance.now();
+  ps.forEach(p=>show(p,0));
+  requestAnimationFrame(function frame(now){
+    if(tok!==animTok)return;
+    const dt=Math.min(100,now-last);last=now;if(!animPaused)t=(t+dt)%total;
+    const k=Math.min(ps.length-1,Math.floor(t/STEP)),end=t>=ps.length*STEP,u=end?1:Math.min(1,(t-k*STEP)/SEG),e=ease(u);
+    ps.forEach((p,i)=>show(p,i<k?1:i===k?e:0));
+    const pt=ps[k].getPointAtLength(L[k]*e);
+    mv.setAttribute('cx',pt.x);mv.setAttribute('cy',pt.y);mv.style.fill=ps[k].style.stroke;mv.style.display='';
+    mark(+ps[k].dataset.i-(u>=1?0:1));
+    requestAnimationFrame(frame);
+  });
+}
 renderMap();
 
 document.getElementById('ov').innerHTML=[
