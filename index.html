@@ -140,6 +140,168 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 .ybr{stroke:var(--muted);fill:none}
 .ye-btn{font:inherit;font-size:13px;margin-top:10px;background:none;border:1px solid var(--line);border-radius:4px;color:var(--fg);padding:3px 10px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.yn,.yl{transition:none}}
+
+.tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;border-bottom:0;margin-bottom:16px}
+.tabs button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;font:inherit;background:var(--surface);color:var(--fg);border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;margin:0;transition:border-color .15s,background .15s}
+.tabs button b{font-family:var(--f-display);font-size:17px;display:flex;align-items:center;gap:8px}
+.tabs button b::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--line)}
+.tabs button span{font-size:12.5px;color:var(--muted);font-weight:400}
+.tabs button:hover{border-color:var(--muted)}
+.tabs button[aria-selected="true"]{border-color:var(--gold);background:var(--gold-soft)}
+.tabs button[aria-selected="true"] b::before{background:var(--gold)}
+.tabs-hint{font-size:13px;color:var(--muted);margin:0 0 8px}
+.yx .info{z-index:3}
+
+/* ---- Yeshua 族譜（新版）與遷移路線 ---- */
+.yx{--panel:var(--surface);--serif:var(--f-display);--sans:var(--f-body);--red:#b4493a;--green:#2f8a57;--grey:#8b95a3;--violet:#8a52b0;--blue:#2c7cb8;--land:#e8ecf0;--sea:#cfe0ee;--sea2:#8fb4d3;--coast:#9bb3c9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .yx{--red:#e27d6d;--green:#7dc99c;--grey:#6c7482;--violet:#c99de2;--blue:#6fb6e8;--land:#1e242d;--sea:#152739;--sea2:#2d5778;--coast:#32495f}}
+:root[data-theme="dark"] .yx{--red:#e27d6d;--green:#7dc99c;--grey:#6c7482;--violet:#c99de2;--blue:#6fb6e8;--land:#1e242d;--sea:#152739;--sea2:#2d5778;--coast:#32495f}
+.yx button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.yx button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+.yx .ov{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 12px}
+.yx .ov-row{display:flex;align-items:center;gap:0;min-width:max-content}
+.yx .chip{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;border-radius:8px}
+.yx .chip:hover{background:var(--line)}
+.yx .chip i{width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.yx .chip.lk i{background:var(--green)}
+.yx .chip.ex i{background:none;border:2px dashed var(--muted);border-radius:3px}
+.yx .chip b{font-size:14px}
+.yx .seg{display:flex;flex-direction:column;align-items:center;min-width:92px;color:var(--muted);font-size:12px;text-align:center}
+.yx .seg::before{content:"";display:block;height:2px;width:100%;background:var(--line);margin:4px 0 4px}
+.yx .interp{display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.yx .interp h2{font:600 15px var(--sans);margin:0}
+.yx .seg-btns{display:flex;flex-wrap:wrap;gap:8px}
+.yx .seg-btns button{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted)}
+.yx .seg-btns button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#1b1608;font-weight:700}
+.yx .interp p{margin:0;max-width:70ch}
+.yx .interp .caveat{color:var(--muted);font-size:13px}
+.yx .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--muted)}
+.yx .legend span{display:inline-flex;align-items:center;gap:6px}
+.yx .sw{width:22px;height:0;border-top:3px solid var(--c)}
+.yx .sw.d{border-top-style:dashed;border-top-width:2px}
+.yx .main{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
+.yx .chart{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding-block:14px 20px;overflow:hidden}
+.yx .lane{position:relative;--x:50%;--lc:var(--gold)}
+.yx .lane::before{content:"";position:absolute;top:0;bottom:0;left:var(--x);border-left:2px var(--ls,solid) var(--lc);transform:translateX(-1px)}
+.yx .split{display:grid;grid-template-columns:1fr 1fr}
+.yx .lane.l{--x:75%;--lc:var(--red)}
+.yx .lane.rt{--x:25%;--lc:var(--green)}
+.yx .lane.anc{--lc:var(--green)}
+.yx .row{position:relative;min-height:38px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding-block:3px;padding-left:calc(var(--x) + 18px);padding-right:8px}
+.yx .lane.l .row{padding-left:8px;padding-right:calc(100% - var(--x) + 18px);align-items:flex-end;text-align:right}
+.yx .dot{position:absolute;left:var(--x);top:19px;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px solid var(--lc);background:var(--panel);z-index:1}
+.yx .dot.f{background:var(--lc)}
+.yx .dot.q{border-style:dashed}
+.yx .dot.fold{width:10px;height:22px;margin:-11px 0 0 -5px;border-radius:6px;background:var(--panel)}
+.yx .num{position:absolute;top:19px;transform:translateY(-50%);font:600 11px/1 var(--sans);color:var(--red);font-variant-numeric:tabular-nums;min-width:18px}
+.yx .lane:not(.l) .num{right:calc(100% - var(--x) + 12px);text-align:right}
+.yx .lane.l .num{left:calc(var(--x) + 12px)}
+.yx .num.tw{background:var(--red);color:#1d0f0c;border-radius:4px;padding:2px 4px}
+.yx .nm{display:flex;flex-direction:column;text-align:inherit;align-items:inherit;line-height:1.25;border-radius:4px}
+.yx .nm b{font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:4px}
+.yx .nm .en{font-size:11.5px;color:var(--muted)}
+.yx .nm:hover b{color:var(--gold)}
+.yx .row.sel .nm b{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+.yx .wm{color:var(--red)}
+.yx .crown{width:13px;height:11px;fill:var(--gold)}
+.yx .qm{font-style:normal;font-size:11px;color:#1b1608;background:var(--gold);border-radius:50%;width:16px;height:16px;display:inline-grid;place-items:center}
+.yx .tw-note{font-size:11.5px;color:var(--red)}
+.yx .fold-btn{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:3px 12px}
+.yx .fold-btn:hover{color:var(--fg);border-color:var(--muted)}
+.yx .row.gap{min-height:30px}
+.yx .row.gap .g{font-size:12px;color:var(--muted);opacity:.75;font-style:italic}
+.yx .row.gap::after{content:"";position:absolute;left:var(--x);top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border:1.5px dashed var(--muted);border-radius:50%;background:var(--panel);z-index:1}
+.yx .row.ghost{opacity:.6}
+.yx .row.ghost .dot{border-style:dotted}
+.yx .brb{margin-top:3px;font-size:12px;color:var(--grey);border:1px solid var(--line);border-radius:999px;padding:1px 10px}
+.yx .brb:hover{color:var(--fg)}
+.yx .branch{margin:6px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:13px;color:var(--fg);text-align:left;max-width:440px;width:100%}
+.yx .branch .bt{font-size:12px;color:var(--muted);margin:6px 0 2px;letter-spacing:.04em}
+.yx .branch .bt:first-child{margin-top:0}
+.yx .branch ul{list-style:none;margin:0;padding-left:14px;border-left:1px solid var(--grey)}
+.yx .branch>ul{margin-left:4px}
+.yx .branch li{position:relative;padding:2px 0 2px 6px}
+.yx .branch li::before{content:"";position:absolute;left:-14px;top:13px;width:16px;border-top:1px solid var(--grey)}
+.yx .branch i{font-style:normal;color:var(--muted);font-size:12px}
+.yx .branch .mainl{color:var(--gold);font-weight:700}
+.yx .branch .dash{border-bottom:1px dashed var(--muted)}
+.yx .grp{display:flex;align-items:center;gap:10px;padding:10px 14px 6px;font-size:12.5px;color:var(--muted)}
+.yx .grp b{color:var(--red);font-weight:600}
+.yx .grp::after{content:"";flex:1;border-top:1px solid var(--line)}
+.yx .exile{display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:12.5px;color:var(--muted)}
+.yx .exile::before{content:"";flex:1;border-top:1px dashed var(--muted)}
+.yx .lhead{font-size:12.5px;font-weight:600;padding:4px 0 6px}
+.yx .lane.l .lhead{color:var(--red);text-align:right;padding-right:calc(100% - var(--x) + 18px)}
+.yx .lane.rt .lhead{color:var(--green);padding-left:calc(var(--x) + 18px)}
+.yx svg.cn{display:block;width:100%;height:46px;overflow:visible}
+.yx svg.cn path,.yx .bottom svg path{fill:none;stroke-width:2;vector-effect:non-scaling-stroke}
+.yx .band{position:relative;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px 18px;padding:10px calc(100% - var(--x) + 16px) 12px 10px}
+.yx .band::before{content:"";position:absolute;top:0;left:12px;right:calc(100% - var(--x));border-top:1px solid var(--grey)}
+.yx .bcol{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding-left:14px;min-width:0}
+.yx .bcol::before{content:"";position:absolute;left:4px;top:-10px;bottom:9px;border-left:1px solid var(--grey)}
+.yx .bh{font-size:11.5px;color:var(--muted);margin-bottom:2px;white-space:nowrap}
+.yx .bi{position:relative;font-size:13px;line-height:1.55;text-align:left;color:var(--fg);white-space:nowrap}
+.yx .bi::before{content:"";position:absolute;left:-13.5px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;border:1.5px solid var(--grey);background:var(--panel)}
+.yx .bi.has::before{background:var(--grey)}
+.yx button.bi:hover{color:var(--fg)}
+.yx .bi.sel{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+.yx .bi.mainl{color:var(--gold);font-weight:700}
+.yx .bend{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:2px}
+.yx .routes{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.yx .routes h2{font:700 20px var(--serif);margin:0}
+.yx .maps{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:12px;align-items:start}
+.yx .map{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+.yx .map .land{fill:var(--land)}
+.yx .map .sea{fill:var(--sea);stroke:var(--coast);stroke-width:1}
+.yx .map .river{fill:none;stroke:var(--sea2);stroke-width:1.6;stroke-linejoin:round}
+.yx .map text{fill:var(--fg)}
+.yx .map .rg{fill:var(--muted);font-style:italic}
+.yx .map .box{fill:none;stroke:var(--muted);stroke-dasharray:4 3}
+.yx .map .rt{fill:none;stroke-width:2.6;stroke-linecap:round}
+.yx .map .pl{fill:var(--panel);stroke:var(--fg);stroke-width:1.5}
+.yx .map .ring{fill:none;stroke:var(--fg);stroke-width:2}
+@media (prefers-reduced-motion:no-preference){.yx .map .rt{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .45s ease forwards}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.yx .stops{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px 16px}
+.yx .stops h3{grid-column:1/-1;margin:6px 0 0;font-size:14px}
+.yx .stop{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;text-align:left;width:100%;padding:6px;border-radius:6px}
+.yx .stop:hover,.yx .stop.on{background:var(--line)}
+.yx .stop .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 11px var(--sans);color:#14120d;background:var(--c)}
+.yx .stop b{font-size:14px}
+.yx .stop span{font-size:13px;color:var(--fg);display:block}
+.yx .stop small{font-size:11.5px;color:var(--muted)}
+.yx .golink{color:var(--gold);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:820px){.yx .maps{grid-template-columns:minmax(0,1fr)}}
+.yx .anc-wrap{padding:0 0 4px}
+.yx .anc-note{font-size:12px;color:var(--muted);padding:0 14px 0 calc(50% + 18px)}
+.yx .bottom{position:relative;height:200px}
+.yx .bottom svg{position:absolute;inset:0;width:100%;height:200px}
+.yx .bn{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.yx .bn .dot{position:static;margin:0}
+.yx .bn.lft{transform:translate(calc(-100% + 7px),-50%);flex-direction:row-reverse;text-align:right}
+.yx .bn.rgt{transform:translate(-7px,-50%)}
+.yx .bn .nm{align-items:inherit}
+.yx .yeshua .dot{width:22px;height:22px;background:var(--gold);border-color:var(--gold)}
+.yx .yeshua b{font:700 18px var(--serif);color:var(--gold)}
+.yx .bl{position:absolute;font-size:11.5px;color:var(--muted);white-space:nowrap;background:var(--panel);padding:0 4px;border-radius:4px}
+.yx .info{position:sticky;top:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.yx .info h3{margin:0;font:700 22px var(--serif)}
+.yx .info h3 span{font:400 13px var(--sans);color:var(--muted);margin-left:8px}
+.yx .meta{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.yx .badge{border-radius:999px;padding:1px 9px;border:1px solid var(--line);color:var(--muted)}
+.yx .badge.src{background:var(--bc);border-color:var(--bc);color:#15130e;font-weight:700}
+.yx .info p{margin:0;font-size:14px;max-width:65ch}
+.yx .info .empty{color:var(--muted)}
+.yx .info a{color:var(--gold)}
+.yx details.chg{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px}
+.yx details.chg summary{cursor:pointer;font-weight:600}
+.yx details.chg ul{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.yx .foot{font-size:12px;color:var(--muted)}
+.yx .foot a{color:var(--muted)}
+@media (max-width:820px){.yx .main{grid-template-columns:minmax(0,1fr)}
+.yx .info{position:sticky;top:auto;bottom:0;max-height:42vh;overflow:auto;box-shadow:0 -8px 24px rgba(0,0,0,.45);padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.yx .nm b{font-size:14px}
+.yx .branch{font-size:12.5px}}
 </style>
 </head>
 <body>
@@ -148,14 +310,16 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
   <header>
     <div>
       <h1>挪亞的後代<span class="he">תּוֹלְדֹת נֹחַ</span></h1>
-      <p class="sub">創世記 10 章「列國表」與 11 章閃到亞伯蘭的十代 · 新約 Yeshua 族譜 · 和合本譯名 · 附經文註解</p>
+      <p class="sub">創世記 10 章「列國表」與 11 章閃到亞伯蘭的十代 · 新約 Yeshua 族譜 · 先祖的遷移路線 · 和合本譯名 · 附經文註解</p>
     </div>
   </header>
 
+  <p class="tabs-hint">點下面的卡片，切換不同的看法：</p>
   <div class="tabs" role="tablist">
-    <button role="tab" id="tab-tree" aria-selected="true" aria-controls="view-tree">分枝圖</button>
-    <button role="tab" id="tab-tl" aria-selected="false" aria-controls="view-tl">壽數時間軸</button>
-    <button role="tab" id="tab-ye" aria-selected="false" aria-controls="view-ye">Yeshua 族譜</button>
+    <button role="tab" id="tab-tree" aria-selected="true" aria-controls="view-tree"><b>分枝圖</b><span>挪亞的三個兒子分出列國（創 10–11）</span></button>
+    <button role="tab" id="tab-tl" aria-selected="false" aria-controls="view-tl"><b>壽數時間軸</b><span>挪亞到亞伯拉罕，誰和誰同時在世</span></button>
+    <button role="tab" id="tab-ye" aria-selected="false" aria-controls="view-ye"><b>Yeshua 族譜</b><span>馬太與路加兩份族譜，從亞當到 Yeshua</span></button>
+    <button role="tab" id="tab-route" aria-selected="false" aria-controls="view-route"><b>遷移路線</b><span>亞伯蘭、以撒、雅各走過的地方</span></button>
   </div>
 
   <section id="view-tree" role="tabpanel" aria-labelledby="tab-tree">
@@ -205,37 +369,53 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
   </section>
 
   <section id="view-ye" role="tabpanel" aria-labelledby="tab-ye" hidden>
-    <div class="ye-cards">
+<div class="yx">
+<div class="ye-cards">
       <div class="ycard mt"><h3>馬太福音 1:1–17</h3><p>從亞伯拉罕<b>往下</b>寫到 Yeshua，大衛之後經過<b>所羅門</b>和猶大的歷代君王，分成三組，每組 14 代（太 1:17）。</p></div>
       <div class="ycard lk"><h3>路加福音 3:23–38</h3><p>從 Yeshua <b>往上</b>一路追溯到亞當，最後寫「亞當是 上帝的兒子」（路 3:38）。大衛之後經過另一個兒子<b>拿單</b>。有一種解釋認為這是馬利亞的家譜，本圖採用這個解釋。</p></div>
     </div>
-    <details class="views"><summary>兩份族譜為什麼不同？三種解經上的解釋</summary>
-      <ol>
-        <li><b>馬太寫約瑟、路加寫馬利亞：</b>希里是馬利亞的父親，約瑟是他的女婿。路加 3:23 說「依人看來，他是約瑟的兒子」，留下這個空間。</li>
-        <li><b>收繼婚（申 25:5–6）：</b>雅各和希里是兄弟，希里無子而死，雅各娶了寡嫂生下約瑟；約瑟生理上是雅各的兒子，律法上是希里的兒子。</li>
-        <li><b>王位線與血統線：</b>馬太列的是大衛王位的繼承順序，路加列的是實際的血統。</li>
-      </ol>
-      <p>這三種都是解經者的推論，經文本身沒有說明。兩份族譜在撒拉鐵和所羅巴伯交會，這裡也有類似的問題：馬太（和歷代志上 3:17）說撒拉鐵是耶哥尼雅的兒子，路加說是尼利的兒子，歷代志上 3:19 又說所羅巴伯是毘大雅的兒子。</p>
-    </details>
-    <div class="toolbar">
-      <button class="btn primary" id="yePlay">▶ 從亞伯拉罕播放</button>
-      <button class="btn" id="yeAll">兩條都看</button>
-      <button class="btn" id="yeMt">只看馬太</button>
-      <button class="btn" id="yeLk">只看路加</button>
-    </div>
-    <div class="legend">
-      <span><i style="background:var(--gold);height:4px"></i>兩份族譜共有</span>
-      <span><i style="background:var(--mt)"></i>馬太（所羅門線）</span>
-      <span><i style="background:var(--lk)"></i>路加（拿單線，一種解釋認為是馬利亞的家譜）</span>
-      <span>♀ 族譜中特別提到的女性</span>
-      <span>實心圓點＝有註解</span>
-    </div>
-    <div class="main">
-      <div class="ye-stage"><svg id="ye" aria-label="Yeshua 族譜"></svg></div>
-      <aside class="panel ye-panel" id="yePanel" aria-live="polite"></aside>
-    </div>
-    <p class="note">譯名與經文引用依和合本；「YHVH」「 上帝」為本頁用語。路加 3:36 在亞法撒和沙拉之間多了「該南」，創世記 11:12 沒有這一代，分枝圖依創世記。</p>
+    <nav class="ov" aria-label="總覽">
+    <div class="ov-row" id="ov"></div>
+  </nav>
+
+  <section class="interp" aria-labelledby="ih">
+    <h2 id="ih">兩份族譜為什麼不同？選一種解釋，看圖最下面怎麼接</h2>
+    <div class="seg-btns" id="modes"></div>
+    <p id="mtext"></p>
+    <p class="caveat">三種都是解經者的推論，經文本身沒有說明。不管哪一種，約瑟都是 Yeshua 律法上的父親，Yeshua 是從馬利亞生的（太 1:16）。</p>
   </section>
+
+  <div class="legend">
+    <span><i class="sw" style="--c:var(--gold)"></i>兩份共有</span>
+    <span><i class="sw" style="--c:var(--red)"></i>馬太（所羅門線）</span>
+    <span><i class="sw" style="--c:var(--green)"></i>路加（拿單線）</span>
+    <span><i class="sw" style="--c:var(--fg)"></i>實線＝經文直接寫的</span>
+    <span><i class="sw d" style="--c:var(--fg)"></i>虛線＝解經推論或律法關係</span>
+    <span><svg class="crown" viewBox="0 0 13 11"><path style="fill:var(--gold);stroke:none" d="M0 3l3 3 3.5-6 3.5 6 3-3-1.5 8h-10z"/></svg>猶大王</span>
+    <span style="color:var(--red)">1–14＝馬太的算法</span>
+    <span>♀ 族譜中提到的女性</span>
+    <span>實心圓點＝有註解</span>
+  </div>
+
+  <div class="main">
+    <div class="chart" id="chart"></div>
+    <aside class="info" id="info" aria-live="polite"></aside>
+  </div>
+<p class="note">想看亞伯拉罕、以撒、雅各走過哪些地方？<button class="golink" data-go="route">看遷移路線 →</button>　譯名與經文引用依和合本；「YHVH」「 上帝」為本頁用語。</p>
+</div>
+</section>
+  <section id="view-route" role="tabpanel" aria-labelledby="tab-route" hidden>
+<div class="yx">
+<div class="routes" id="a-route">
+    <h2 id="rh">亞伯蘭之後的遷移路線</h2>
+    <div class="seg-btns" id="pbtn"></div>
+    <div class="maps"><div id="mbig"></div><div id="mzoom"></div></div>
+    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。左圖是全區，右圖放大迦南；點下面的站可以在地圖上標出來。</p>
+    <ol class="stops" id="stops"></ol>
+  </div>
+</div>
+  </section>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
@@ -510,188 +690,288 @@ tlBtn.onclick=()=>{
 };
 function growBars(){if(reduce)return;bars.attr("width",0).transition().delay((d,i)=>i*70).duration(700).attr("width",d=>xs(d.e)-xs(d.b));}
 
-// ---------- Yeshua 族譜 ----------
-function Y(zh,en,he,ref,note,ex){return Object.assign({zh,en,he,ref,note},ex||{});}
-const YTRUNK=[
- Y("亞伯拉罕","Abraham","אַבְרָהָם","太 1:1–2；路 3:34","馬太一開頭就稱 Yeshua 是亞伯拉罕的後裔、大衛的子孫（太 1:1）。 上帝應許亞伯拉罕：「地上萬國都必因你的後裔得福」（創 22:18）；保羅指出這應許說的是「你那一個子孫」，就是彌賽亞（加 3:16）。路加從這裡繼續往上，經過他拉、閃、挪亞，一直到亞當。",{"tree":true}),
- Y("以撒","Isaac","יִצְחָק","太 1:2；路 3:34","亞伯拉罕說：「我兒， 上帝必自己預備作燔祭的羊羔」（創 22:8）。新約說 上帝「不愛惜自己的兒子，為我們眾人捨了」（羅 8:32）。"),
- Y("雅各","Jacob","יַעֲקֹב","太 1:2；路 3:34",""),
- Y("猶大","Judah","יְהוּדָה","太 1:2–3；路 3:33","雅各的祝福：「圭必不離猶大，杖必不離他兩腳之間，直等細羅來到，萬民都必歸順」（創 49:10）。"),
- Y("法勒斯","Perez","פֶּרֶץ","太 1:3；路 3:33","他瑪是猶大的媳婦（創 38 章）。路得記 4:18–22「法勒斯的後代」從法勒斯到大衛正好十代。",{"w":"他瑪"}),
- Y("希斯崙","Hezron","חֶצְרוֹן","太 1:3；路 3:33","跟隨雅各下埃及的人之一（創 46:12）。"),
- Y("亞蘭","Ram","רָם","太 1:3–4；路 3:33","路得記 4:19 作「蘭」，馬太福音和路加福音的和合本都作「亞蘭」。"),
- Y("亞米拿達","Amminadab","עַמִּינָדָב","太 1:4；路 3:33","亞倫娶了亞米拿達的女兒、拿順的妹妹以利沙巴為妻（出 6:23）。"),
- Y("拿順","Nahshon","נַחְשׁוֹן","太 1:4；路 3:32","出埃及後在曠野數點百姓時，拿順是代表猶大支派的首領（民 1:7）。"),
- Y("撒門","Salmon","שַׂלְמוֹן","太 1:4–5；路 3:32","馬太說撒門從喇合生波阿斯（太 1:5）。",{"w":"喇合"}),
- Y("波阿斯","Boaz","בֹּעַז","太 1:5；路 3:32","路得是摩押女子（得 1:4），摩押是羅得的後代（創 19:37），羅得就是分枝圖裡哈蘭的兒子。路得對波阿斯說：「你是我一個至近的親屬」（得 3:9）。",{"w":"路得"}),
- Y("俄備得","Obed","עוֹבֵד","太 1:5；路 3:32",""),
- Y("耶西","Jesse","יִשַׁי","太 1:5–6；路 3:32","「從耶西的本必發一條；從他根生的枝子必結果實」（賽 11:1）。"),
- Y("大衛","David","דָּוִד","太 1:6；路 3:31"," 上帝與大衛立約：「你的家和你的國必在我面前永遠堅立。你的國位也必堅定，直到永遠」（撒下 7:16）。馬太把族譜分成三組，每組 14 代（太 1:17）。")];
-const YMT_A=[
- Y("所羅門","Solomon","שְׁלֹמֹה","太 1:6–7","馬太寫大衛從烏利亞的妻子生所羅門，沒有寫拔示巴的名字。",{"w":"烏利亞的妻"}),
- Y("羅波安","Rehoboam","רְחַבְעָם","太 1:7",""),
- Y("亞比雅","Abijah","אֲבִיָּה","太 1:7",""),
- Y("亞撒","Asa","אָסָא","太 1:7–8",""),
- Y("約沙法","Jehoshaphat","יְהוֹשָׁפָט","太 1:8",""),
- Y("約蘭","Joram","יוֹרָם","太 1:8","歷代志上 3:11–12 在約蘭和約坦之間列出亞哈謝、約阿施、亞瑪謝、亞撒利雅；馬太只寫了烏西雅一代，省略了三代。"),
- Y("烏西雅","Uzziah","עֻזִּיָּהוּ","太 1:8–9","「當烏西雅王崩的那年，我見主坐在高高的寶座上」（賽 6:1）。"),
- Y("約坦","Jotham","יוֹתָם","太 1:9",""),
- Y("亞哈斯","Ahaz","אָחָז","太 1:9","以賽亞書 7 章「必有童女懷孕生子，給他起名叫以馬內利」（7:14）是在亞哈斯作王時說的；馬太 1:23 引用了這節。"),
- Y("希西家","Hezekiah","חִזְקִיָּהוּ","太 1:9–10",""),
- Y("瑪拿西","Manasseh","מְנַשֶּׁה","太 1:10","他在急難中懇求 YHVH，在列祖的 上帝面前極其自卑， 上帝就使他歸回耶路撒冷（代下 33:12–13）。"),
- Y("亞們","Amon","אָמוֹן","太 1:10",""),
- Y("約西亞","Josiah","יֹאשִׁיָּהוּ","太 1:10–11","歷代志上 3:15–16：約西亞的兒子是約雅敬，約雅敬的兒子是耶哥尼雅；馬太省略了約雅敬。"),
- Y("耶哥尼雅","Jechoniah","יְכָנְיָה","太 1:11–12","耶利米書 22:24 稱他為「哥尼雅（又名耶哥尼雅）」，22:30 說：「要寫明這人算為無子……因為他後裔中再無一人得亨通，能坐在大衛的寶座上治理猶大。」歷代志上 3:17 記著「耶哥尼雅被擄。他的兒子是撒拉鐵」。後來 上帝對撒拉鐵的兒子所羅巴伯說「我必以你為印」（該 2:23），對照耶 22:24 的「帶印的戒指」。解經者常指出：若 Yeshua 是約瑟的親生兒子，就會落在這個咒詛之下；童女懷孕使他不在耶哥尼雅的血統裡。")];
-const YLK_A=[
- Y("拿單","Nathan","נָתָן","路 3:31","大衛在耶路撒冷所生的兒子，母親是拔．書亞（代上 3:5；撒下 5:14）。撒迦利亞書 12:12 在大衛家之後特別提到「拿單家」。"),
- Y("瑪達他","Mattatha","מַתַּתָּה","路 3:31",""),
- Y("買南","Menna","","路 3:31",""),
- Y("米利亞","Melea","","路 3:31",""),
- Y("以利亞敬","Eliakim","אֶלְיָקִים","路 3:30",""),
- Y("約南","Jonam","","路 3:30",""),
- Y("約瑟","Joseph","יוֹסֵף","路 3:30",""),
- Y("猶大","Judah","יְהוּדָה","路 3:30",""),
- Y("西緬","Simeon","שִׁמְעוֹן","路 3:30",""),
- Y("利未","Levi","לֵוִי","路 3:29",""),
- Y("瑪塔","Matthat","מַתָּת","路 3:29",""),
- Y("約令","Jorim","","路 3:29",""),
- Y("以利以謝","Eliezer","אֱלִיעֶזֶר","路 3:29",""),
- Y("約細","Joshua","יְהוֹשֻׁעַ","路 3:29",""),
- Y("珥","Er","עֵר","路 3:28",""),
- Y("以摩當","Elmadam","","路 3:28",""),
- Y("哥桑","Cosam","","路 3:28",""),
- Y("亞底","Addi","","路 3:28",""),
- Y("麥基","Melchi","","路 3:28",""),
- Y("尼利","Neri","נֵרִיָּה","路 3:27","路加說撒拉鐵是尼利的兒子，馬太和歷代志上 3:17 則說撒拉鐵是耶哥尼雅的兒子。")];
-const YMID=[
- Y("撒拉鐵","Shealtiel","שְׁאַלְתִּיאֵל","太 1:12；路 3:27","兩條線在這裡交會。馬太（和代上 3:17）說他是耶哥尼雅的兒子，路加說是尼利的兒子。"),
- Y("所羅巴伯","Zerubbabel","זְרֻבָּבֶל","太 1:12–13；路 3:27","撒拉鐵的兒子所羅巴伯帶領被擄歸回的人，建築 上帝的壇、興工建造聖殿（拉 3:2、8）。歷代志上 3:19 則說所羅巴伯是毘大雅的兒子。 上帝對他說：「我必以你為印，因我揀選了你」（該 2:23）。")];
-const YMT_B=[
- Y("亞比玉","Abiud","אֲבִיהוּד","太 1:13","從亞比玉到雅各這九代，舊約沒有記載。"),
- Y("以利亞敬","Eliakim","אֶלְיָקִים","太 1:13",""),
- Y("亞所","Azor","עַזּוּר","太 1:13–14",""),
- Y("撒督","Zadok","צָדוֹק","太 1:14",""),
- Y("亞金","Achim","","太 1:14",""),
- Y("以律","Eliud","אֱלִיהוּד","太 1:14–15",""),
- Y("以利亞撒","Eleazar","אֶלְעָזָר","太 1:15",""),
- Y("馬但","Matthan","מַתָּן","太 1:15",""),
- Y("雅各","Jacob","יַעֲקֹב","太 1:15–16","「雅各生約瑟，就是馬利亞的丈夫」（太 1:16）。")];
-const YLK_B=[
- Y("利撒","Rhesa","","路 3:27",""),
- Y("約亞拿","Joanan","יוֹחָנָן","路 3:27",""),
- Y("猶大","Joda","","路 3:26",""),
- Y("約瑟","Josech","","路 3:26",""),
- Y("西美","Semein","שִׁמְעִי","路 3:26",""),
- Y("瑪他提亞","Mattathias","מַתִּתְיָהוּ","路 3:26",""),
- Y("瑪押","Maath","","路 3:26",""),
- Y("拿該","Naggai","","路 3:25",""),
- Y("以斯利","Esli","","路 3:25",""),
- Y("拿鴻","Nahum","נַחוּם","路 3:25",""),
- Y("亞摩斯","Amos","עָמוֹס","路 3:25",""),
- Y("瑪他提亞","Mattathias","מַתִּתְיָהוּ","路 3:25",""),
- Y("約瑟","Joseph","יוֹסֵף","路 3:24",""),
- Y("雅拿","Jannai","יַנַּאי","路 3:24",""),
- Y("麥基","Melchi","","路 3:24",""),
- Y("利未","Levi","לֵוִי","路 3:24",""),
- Y("瑪塔","Matthat","מַתָּת","路 3:24",""),
- Y("希里","Heli","עֵלִי","路 3:23","路加 3:23 字面上寫「約瑟是希里的兒子」。一種解釋認為路加記的是馬利亞的家譜，希里是馬利亞的父親、約瑟的岳父；另一種解釋認為這是收繼婚中約瑟律法上的父親。本圖採馬利亞支系的解釋，把這條線接到馬利亞。")];
-const YJOS=Y("約瑟","Joseph","יוֹסֵף","太 1:16；路 3:23","兩份族譜都提到約瑟。以色列人的家譜是按「家室、宗族」記載的（民 1:18）。馬太寫到這裡換了說法：「雅各生約瑟，就是馬利亞的丈夫。那稱為彌賽亞的 Yeshua 是從馬利亞生的」（太 1:16）。",{"src":"兩份族譜都有"});
-const YMARY=Y("馬利亞","Mary","מִרְיָם","太 1:16；路 1–3 章","名字與摩西的姊姊米利暗（出 15:20）相同。聖經沒有直接寫出馬利亞的家譜，有一種解釋認為路加 3 章就是她的家譜（見上方說明）。新約說 Yeshua「按肉體說，是從大衛後裔生的」（羅 1:3）。馬利亞是伊利沙伯的親戚（路 1:36），而伊利沙伯是「亞倫的後人」（路 1:5）。",{"w":"♀","src":"路加線（馬利亞支系的解釋）"});
-const YESHUA=Y("Yeshua","","יֵשׁוּעַ","太 1:16, 21；路 3:23","天使說：「你要給他起名叫 Yeshua，因他要將自己的百姓從罪惡裡救出來」（太 1:21）；名字的意思是「YHVH 是拯救」。舊約的約書亞也是這個名字：摩西把嫩的兒子何西阿改名為約書亞（民 13:16）。眾人稱他為「大衛的子孫」（太 9:27；21:9）。");
+// ---------- Yeshua 族譜（新版）與遷移路線 ----------
+(()=>{
 
-const ysvg=d3.select("#ye"),YW=640,CX=320,LX=200,RX=440,YRH=32,YTOP=40;
-const yN=[],yL=[];
-const yy=r=>YTOP+r*YRH;
-function yAdd(d,x,r,lane){const n=Object.assign({},d,{x,y:yy(r),row:Math.round(r),lane});yN.push(n);return n;}
-function yLink(a,b,lane,dash){yL.push({a,b,lane,dash,row:b.row});}
-function chain(arr,lane){for(let i=1;i<arr.length;i++)yLink(arr[i-1],arr[i],lane);}
-const tN=YTRUNK.map((d,i)=>yAdd(d,CX,i,"both"));chain(tN,"both");
-const spread=(arr,x,start,len,lane)=>arr.map((d,i)=>yAdd(d,x,start+(i+0.5)*len/arr.length-0.5,lane));
-const A0=15,AL=20,mA=spread(YMT_A,LX,A0,AL,"mt"),lA=spread(YLK_A,RX,A0,AL,"lk");
-const davidN=tN[tN.length-1];yLink(davidN,mA[0],"mt");yLink(davidN,lA[0],"lk");chain(mA,"mt");chain(lA,"lk");
-const sh=yAdd(YMID[0],CX,A0+AL+1,"both"),zr=yAdd(YMID[1],CX,A0+AL+2,"both");
-yLink(mA[mA.length-1],sh,"mt");yLink(lA[lA.length-1],sh,"lk");yLink(sh,zr,"both");
-const B0=A0+AL+3,BL=18,mB=spread(YMT_B,LX,B0,BL,"mt"),lB=spread(YLK_B,RX,B0,BL,"lk");
-yLink(zr,mB[0],"mt");yLink(zr,lB[0],"lk");chain(mB,"mt");chain(lB,"lk");
-const jo=yAdd(YJOS,LX,B0+BL,"mt"),ma=yAdd(YMARY,RX,B0+BL,"lk"),ye=yAdd(YESHUA,CX,B0+BL+1.6,"both");
-yLink(mB[mB.length-1],jo,"mt");yLink(lB[lB.length-1],ma,"lk");yLink(jo,ye,"mt");yLink(ma,ye,"lk");
-const YH=ye.y+50;
-ysvg.attr("viewBox",`0 0 ${YW} ${YH}`);
-const laneCol=l=>l==="mt"?"var(--mt)":l==="lk"?"var(--lk)":"var(--gold)";
-// 標示
-const gA=ysvg.append("g");
-gA.append("text").attr("class","ylab mt").attr("x",LX).attr("y",yy(A0-1)+4).attr("text-anchor","middle").text("馬太 · 所羅門線");
-gA.append("text").attr("class","ylab lk").attr("x",RX).attr("y",yy(A0-1)+4).attr("text-anchor","middle").text("路加 · 拿單線（馬利亞）");
-gA.append("line").attr("x1",jo.x+10).attr("x2",ma.x-10).attr("y1",jo.y).attr("y2",jo.y).style("stroke","var(--muted)").attr("stroke-dasharray","2 4");
-gA.append("text").attr("class","ylab").attr("x",CX).attr("y",jo.y-6).attr("text-anchor","middle").text("夫妻");
-const exY=yy(A0+AL+0.5);
-gA.append("line").attr("x1",40).attr("x2",YW-20).attr("y1",exY).attr("y2",exY).style("stroke","var(--muted)").attr("stroke-dasharray","4 5");
-gA.append("text").attr("class","ylab").attr("x",YW-20).attr("y",exY-6).attr("text-anchor","end").text("被擄到巴比倫");
-function bracket(y0,y1,label){const x=22;gA.append("path").attr("class","ybr").attr("d",`M${x+8},${y0} H${x} V${y1} H${x+8}`);
-  gA.append("text").attr("class","ylab").attr("transform",`translate(${x-6},${(y0+y1)/2}) rotate(-90)`).attr("text-anchor","middle").text(label);}
-bracket(tN[0].y,davidN.y,"第一組 14 代");
-bracket(mA[0].y,mA[12].y,"第二組 14 代（連大衛）");
-bracket(mA[13].y,ye.y,"第三組 14 代");
-// 線
-const yLinkSel=ysvg.append("g").selectAll("path").data(yL).join("path").attr("class","yl")
-  .attr("d",d=>d3.linkVertical()({source:[d.a.x,d.a.y],target:[d.b.x,d.b.y]}))
-  .style("stroke",d=>laneCol(d.lane)).attr("stroke-dasharray",d=>d.dash?"3 4":null).style("stroke-opacity",d=>d.lane==="both"?.95:.8);
-// 節點
-let ySel=null;
-const yNodeSel=ysvg.append("g").selectAll("g").data(yN).join("g").attr("class","yn")
-  .attr("transform",d=>`translate(${d.x},${d.y})`).attr("tabindex",0).attr("role","button").attr("aria-label",d=>d.zh+" "+d.en)
-  .on("click",(e,d)=>ySelect(d)).on("keydown",(e,d)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();ySelect(d);}});
-yNodeSel.append("circle").attr("r",d=>d===ye?10:d.lane==="both"?7:6)
-  .style("stroke",d=>laneCol(d.lane)).style("fill",d=>d===ye?"var(--gold)":(d.note||d.jt)?laneCol(d.lane):"var(--surface)");
-yNodeSel.each(function(d){
-  const g=d3.select(this),left=d.lane==="mt",x=left?-12:12,anc=left?"end":"start";
-  g.append("text").attr("class","nm").attr("x",x).attr("dy","-0.1em").attr("text-anchor",anc).text(d.zh);
-  const s=g.append("text").attr("class","sb").attr("x",x).attr("dy","1.15em").attr("text-anchor",anc).text(d.en);
-  if(d.w)s.append("tspan").attr("class","w").text(d.w==="♀"?"  ♀":"  ♀ "+d.w);
-});
-const yPanel=document.getElementById("yePanel");
-const srcOf=d=>d.src?d.src:d.lane==="mt"?"只在馬太":d.lane==="lk"?"只在路加":"兩份族譜都有";
-function ySelect(d){
-  ySel=d;yNodeSel.classed("sel",n=>n===d);
-  const chip=`<span class="chip b" style="background:${laneCol(d.lane)}">${srcOf(d)}</span>`;
-  const mom=d.w&&d.w!=="♀"?`<span class="chip">♀ ${esc(d.w)}</span>`:"";
-  yPanel.innerHTML=`<div class="names"><h2>${esc(d.zh)}</h2>${d.he?`<span class="he" lang="he">${esc(d.he)}</span>`:""}<span class="en">${esc(d.en)}</span></div>
-    <div class="chips">${chip}${mom}<span class="chip">${esc(d.ref)}</span></div>
-    ${d.note?`<h3>經文</h3><p>${esc(d.note)}</p>`:""}${d.jt?`<h3>猶太傳統（已查證出處）</h3><p>${esc(d.jt)}</p>`:""}${!d.note&&!d.jt?`<p class="en">經文只記了名字，沒有其他記載。</p>`:""}
-    ${d.tree?`<button class="ye-btn" id="yeToTree">在分枝圖看亞伯蘭的祖先 →</button>`:""}`;
-  const tb=document.getElementById("yeToTree");
-  if(tb)tb.onclick=()=>{document.getElementById("tab-tree").click();setTimeout(()=>document.getElementById("path").click(),50);};
+let K=0;const ALL={};
+const N=(zh,en,ref,note='',x={})=>{const n={k:'k'+(K++),zh,en,ref,note,...x};ALL[n.k]=n;return n};
+const F=(fold,label,items)=>({fold,label,items});
+const CROWN='<svg class="crown" viewBox="0 0 13 11" aria-label="猶大王"><path style="fill:var(--gold);stroke:none" d="M0 3l3 3 3.5-6 3.5 6 3-3-1.5 8h-10z"/></svg>';
+const SRC={both:['兩份族譜都有','var(--gold)'],mt:['只在馬太','var(--red)'],lk:['只在路加','var(--green)'],br:['旁支（不在 Yeshua 族譜中）','var(--grey)']};
+
+const ANC=[N('亞當','Adam','路 3:38','路加最後寫「亞當是 上帝的兒子」（路 3:38）。',{id:'adam',s:'lk'}),N('塞特','Seth','路 3:38','',{s:'lk'}),N('以挪士','Enosh','路 3:38','',{s:'lk'}),N('該南','Kenan','路 3:37','',{s:'lk'}),N('瑪勒列','Mahalalel','路 3:37','',{s:'lk'}),N('雅列','Jared','路 3:37','',{s:'lk'}),N('以諾','Enoch','路 3:37','「以諾與 上帝同行， 上帝將他取去，他就不在世了」（創 5:24）。',{s:'lk'}),N('瑪土撒拉','Methuselah','路 3:37','',{s:'lk'}),N('拉麥','Lamech','路 3:36','',{s:'lk'}),
+N('挪亞','Noah','路 3:36','挪亞的三個兒子閃、含、雅弗分出列國（創 10 章），詳見上方的<a href="#tree">分枝圖</a>。',{id:'noah',s:'lk'}),
+N('閃','Shem','路 3:36','創世記 11 章從閃記到亞伯蘭，共十代。',{id:'shem',s:'lk'}),N('亞法撒','Arphaxad','路 3:36','',{s:'lk'}),
+N('該南','Cainan','路 3:36','只有路加 3:36 有這一代；創世記 11:12 說亞法撒生沙拉，中間沒有該南。原站分枝圖依創世記。',{q:1,s:'lk'}),
+N('沙拉','Shelah','路 3:35','',{s:'lk'}),N('希伯','Eber','路 3:35','',{s:'lk'}),N('法勒','Peleg','路 3:35','「那時人就分地居住」（創 10:25）。',{s:'lk'}),N('拉吳','Reu','路 3:35','',{s:'lk'}),N('西鹿','Serug','路 3:35','',{s:'lk'}),N('拿鶴','Nahor','路 3:34','',{s:'lk'}),N('他拉','Terah','路 3:34','他拉生亞伯蘭、拿鶴、哈蘭（創 11:26）。旁支見亞伯拉罕的「支線」。',{s:'lk'})];
+
+const T=(a,b,c,d,e={})=>N(a,b,c,d,{s:'both',...e});
+const TRUNK=[
+T('亞伯拉罕','Abraham','太 1:1–2；路 3:34','馬太一開頭就稱 Yeshua 是亞伯拉罕的後裔、大衛的子孫（太 1:1）。 上帝應許亞伯拉罕：「地上萬國都必因你的後裔得福」（創 22:18）；保羅指出這應許說的是「你那一個子孫」，就是彌賽亞（加 3:16）。路加從這裡繼續往上，經過他拉、閃、挪亞，一直到亞當。',{num:1,id:'abraham',br:'abraham'}),
+T('以撒','Isaac','太 1:2；路 3:34','亞伯拉罕說：「我兒， 上帝必自己預備作燔祭的羊羔」（創 22:8）。新約說 上帝「不愛惜自己的兒子，為我們眾人捨了」（羅 8:32）。',{num:2,br:'isaac'}),
+T('雅各','Jacob','太 1:2；路 3:34','',{num:3,br:'jacob'}),
+T('猶大','Judah','太 1:2–3；路 3:33','雅各的祝福：「圭必不離猶大，杖必不離他兩腳之間，直等細羅來到，萬民都必歸順」（創 49:10）。',{num:4,br:'judah'}),
+T('法勒斯','Perez','太 1:3；路 3:33','他瑪是猶大的媳婦（創 38 章）。路得記 4:18–22「法勒斯的後代」從法勒斯到大衛正好十代。',{num:5,w:'他瑪'}),
+T('希斯崙','Hezron','太 1:3；路 3:33','跟隨雅各下埃及的人之一（創 46:12）。',{num:6}),
+T('亞蘭','Ram','太 1:3–4；路 3:33','路得記 4:19 作「蘭」，馬太福音和路加福音的和合本都作「亞蘭」。',{num:7}),
+T('亞米拿達','Amminadab','太 1:4；路 3:33','亞倫娶了亞米拿達的女兒、拿順的妹妹以利沙巴為妻（出 6:23）。',{num:8}),
+T('拿順','Nahshon','太 1:4；路 3:32','出埃及後在曠野數點百姓時，拿順是代表猶大支派的首領（民 1:7）。',{num:9}),
+T('撒門','Salmon','太 1:4–5；路 3:32','馬太說撒門從喇合生波阿斯（太 1:5）。',{num:10,w:'喇合'}),
+T('波阿斯','Boaz','太 1:5；路 3:32','路得是摩押女子（得 1:4），摩押是羅得的後代（創 19:37），羅得就是他拉的兒子哈蘭的兒子。路得對波阿斯說：「你是我一個至近的親屬」（得 3:9）。',{num:11,w:'路得',br:'boaz'}),
+T('俄備得','Obed','太 1:5；路 3:32','',{num:12}),
+T('耶西','Jesse','太 1:5–6；路 3:32','「從耶西的本必發一條；從他根生的枝子必結果實」（賽 11:1）。',{num:13}),
+T('大衛','David','太 1:6；路 3:31',' 上帝與大衛立約：「你的家和你的國必在我面前永遠堅立。你的國位也必堅定，直到永遠」（撒下 7:16）。馬太把族譜分成三組，每組 14 代（太 1:17）；大衛是第一組的最後一代。',{num:14,king:1,id:'david'})];
+
+const M=(a,b,c,d,e={})=>N(a,b,c,d,{s:'mt',king:1,...e});
+const MT_A=[
+M('所羅門','Solomon','太 1:6–7','馬太寫大衛從烏利亞的妻子生所羅門，沒有寫拔示巴的名字。',{num:1,w:'烏利亞的妻'}),
+M('羅波安','Rehoboam','太 1:7','',{num:2}),M('亞比雅','Abijah','太 1:7','',{num:3}),M('亞撒','Asa','太 1:7–8','',{num:4}),M('約沙法','Jehoshaphat','太 1:8','',{num:5}),
+M('約蘭','Joram','太 1:8','歷代志上 3:11–12 在約蘭和約坦之間列出亞哈謝、約阿施、亞瑪謝、亞撒利雅（就是烏西雅）；馬太只寫了烏西雅一代，省略了三代。',{num:6}),
+{gap:'馬太省略：亞哈謝、約阿施、亞瑪謝（代上 3:11–12）'},
+M('烏西雅','Uzziah','太 1:8–9','「當烏西雅王崩的那年，我見主坐在高高的寶座上」（賽 6:1）。',{num:7}),
+M('約坦','Jotham','太 1:9','',{num:8}),
+M('亞哈斯','Ahaz','太 1:9','以賽亞書 7 章「必有童女懷孕生子，給他起名叫以馬內利」（7:14）是在亞哈斯作王時說的；馬太 1:23 引用了這節。',{num:9}),
+M('希西家','Hezekiah','太 1:9–10','',{num:10}),
+M('瑪拿西','Manasseh','太 1:10','他在急難中懇求 YHVH，在列祖的 上帝面前極其自卑， 上帝就使他歸回耶路撒冷（代下 33:12–13）。',{num:11}),
+M('亞們','Amon','太 1:10','',{num:12}),
+M('約西亞','Josiah','太 1:10–11','歷代志上 3:15–16：約西亞的兒子是約雅敬，約雅敬的兒子是耶哥尼雅；馬太省略了約雅敬。',{num:13}),
+{gap:'馬太省略：約雅敬（代上 3:15–16）'},
+M('耶哥尼雅','Jechoniah','太 1:11–12','耶利米書 22:24 稱他為「哥尼雅（又名耶哥尼雅）」，22:30 說：「要寫明這人算為無子……因為他後裔中再無一人得亨通，能坐在大衛的寶座上治理猶大。」歷代志上 3:17 記著「耶哥尼雅被擄。他的兒子是撒拉鐵」。後來 上帝對撒拉鐵的兒子所羅巴伯說「我必以你為印」（該 2:23），對照耶 22:24 的「帶印的戒指」。解經者常指出：若 Yeshua 是約瑟的親生兒子，就會落在這個咒詛之下；童女懷孕使他不在耶哥尼雅的血統裡。<br><br><b>算法：</b>第三組只有撒拉鐵到 Yeshua 13 代，常見的算法是把耶哥尼雅再算一次，作第三組的第 1 代（被擄前作王、被擄後生子）。',{num:14,twice:1})];
+
+const L=(a,b,c,d='',e={})=>N(a,b,c,d,{s:'lk',...e});
+const LK_A=[
+L('拿單','Nathan','路 3:31','大衛在耶路撒冷所生的兒子，母親是拔．書亞（代上 3:5；撒下 5:14）。撒迦利亞書 12:12 在大衛家之後特別提到「拿單家」。'),
+F('lka','瑪達他 → 麥基 · 18 代',[L('瑪達他','Mattatha','路 3:31'),L('買南','Menna','路 3:31'),L('米利亞','Melea','路 3:31'),L('以利亞敬','Eliakim','路 3:30'),L('約南','Jonam','路 3:30'),L('約瑟','Joseph','路 3:30'),L('猶大','Judah','路 3:30'),L('西緬','Simeon','路 3:30'),L('利未','Levi','路 3:29'),L('瑪塔','Matthat','路 3:29'),L('約令','Jorim','路 3:29'),L('以利以謝','Eliezer','路 3:29'),L('約細','Joshua','路 3:29'),L('珥','Er','路 3:28'),L('以摩當','Elmadam','路 3:28'),L('哥桑','Cosam','路 3:28'),L('亞底','Addi','路 3:28'),L('麥基','Melchi','路 3:28')]),
+L('尼利','Neri','路 3:27','路加說撒拉鐵是尼利的兒子，馬太和歷代志上 3:17 則說撒拉鐵是耶哥尼雅的兒子。')];
+
+const MID=[
+{ghost:1,num:1,zh:'耶哥尼雅（重算）',en:'第三組從這裡算起'},
+T('撒拉鐵','Shealtiel','太 1:12；路 3:27','兩條線在這裡交會，但出處不一致：馬太 1:12 和歷代志上 3:17 說他是耶哥尼雅的兒子，路加 3:27 說是尼利的兒子。',{num:2,q:1}),
+T('所羅巴伯','Zerubbabel','太 1:12–13；路 3:27','撒拉鐵的兒子所羅巴伯帶領被擄歸回的人，建築 上帝的壇、興工建造聖殿（拉 3:2、8）。但歷代志上 3:19 說所羅巴伯是毘大雅的兒子（毘大雅是撒拉鐵的兄弟）。 上帝對他說：「我必以你為印，因我揀選了你」（該 2:23）。',{num:3,q:1})];
+
+const MT_B=[
+M('亞比玉','Abiud','太 1:13','從亞比玉到雅各這九代，舊約沒有記載。',{num:4,king:0}),
+F('mtb','以利亞敬 → 馬但 · 第 5–11 代',[M('以利亞敬','Eliakim','太 1:13','',{num:5,king:0}),M('亞所','Azor','太 1:13–14','',{num:6,king:0}),M('撒督','Zadok','太 1:14','',{num:7,king:0}),M('亞金','Achim','太 1:14','',{num:8,king:0}),M('以律','Eliud','太 1:14–15','',{num:9,king:0}),M('以利亞撒','Eleazar','太 1:15','',{num:10,king:0}),M('馬但','Matthan','太 1:15','',{num:11,king:0})]),
+M('雅各','Jacob','太 1:15–16','「雅各生約瑟，就是馬利亞的丈夫」（太 1:16）。',{num:12,king:0})];
+
+const LK_B=[
+F('lkb','利撒 → 瑪塔 · 17 代',[L('利撒','Rhesa','路 3:27'),L('約亞拿','Joanan','路 3:27'),L('猶大','Joda','路 3:26'),L('約瑟','Josech','路 3:26'),L('西美','Semein','路 3:26'),L('瑪他提亞','Mattathias','路 3:26'),L('瑪押','Maath','路 3:26'),L('拿該','Naggai','路 3:25'),L('以斯利','Esli','路 3:25'),L('拿鴻','Nahum','路 3:25'),L('亞摩斯','Amos','路 3:25'),L('瑪他提亞','Mattathias','路 3:25'),L('約瑟','Joseph','路 3:24'),L('雅拿','Jannai','路 3:24'),L('麥基','Melchi','路 3:24'),L('利未','Levi','路 3:24'),L('瑪塔','Matthat','路 3:24')]),
+L('希里','Heli','路 3:23','路加 3:23 字面上寫「約瑟是希里的兒子」。希里和約瑟、馬利亞的關係，看上方選的解釋。')];
+
+const JOS=N('約瑟','Joseph','太 1:16；路 3:23','兩份族譜都提到約瑟。馬太寫到這裡換了說法：「雅各生約瑟，就是馬利亞的丈夫。那稱為彌賽亞的 Yeshua 是從馬利亞生的」（太 1:16），沒有寫「約瑟生 Yeshua」。所以圖上約瑟到 Yeshua 用虛線：約瑟是律法上的父親。',{s:'both',num:13});
+const MARY=N('馬利亞','Mary','太 1:16；路 1–3 章','聖經沒有直接寫出馬利亞的家譜，有一種解釋認為路加 3 章就是她的家譜。新約說 Yeshua「按肉體說，是從大衛後裔生的」（羅 1:3）。馬利亞是伊利沙伯的親戚（路 1:36），而伊利沙伯是「亞倫的後人」（路 1:5）。',{s:'lk',w:'♀'});
+const YESHUA=N('Yeshua','יֵשׁוּעַ','太 1:16, 21；路 3:23','天使說：「你要給他起名叫 Yeshua，因他要將自己的百姓從罪惡裡救出來」（太 1:21）；名字的意思是「YHVH 是拯救」。舊約的約書亞也是這個名字：摩西把嫩的兒子何西阿改名為約書亞（民 13:16）。眾人稱他為「大衛的子孫」（太 9:27；21:9）。',{s:'both',num:14,id:'yeshua'});
+
+const B=(zh,en,ref,note='',x={})=>N(zh,en,ref,note,{s:'br',...x});
+const MAINL=t=>({main:1,zh:t});
+const BANDS={
+abraham:[
+ {h:'兄弟 拿鶴（創 11:27）',items:[B('拿鶴','Nahor','創 11:27','亞伯蘭的兄弟，留在哈蘭一帶（創 24:10）。'),B('彼土利','Bethuel','創 22:22–23'),B('利百加','Rebekah','創 22:23；24:15, 67','拿鶴的孫女，嫁給以撒，生以掃和雅各。旁支在這裡又接回主線。',{w:1})],end:'→ 嫁給以撒'},
+ {h:'兄弟 哈蘭（創 11:27）',items:[B('哈蘭','Haran','創 11:27–28','亞伯蘭的兄弟，死在迦勒底的吾珥。'),B('羅得','Lot','創 11:27；12:4','哈蘭的兒子，跟著亞伯蘭離開哈蘭（創 12:4）。所多瑪毀滅時被救出（創 19 章）。'),B('摩押','Moab','創 19:37','羅得的大女兒所生，是摩押人的始祖。路得是摩押女子（得 1:4）。'),B('便亞米','Ben-Ammi','創 19:38','羅得的小女兒所生，是亞捫人的始祖。')],end:'摩押 ⋯ 路得 → 嫁給波阿斯'},
+ {h:'夏甲 ♀',items:[B('以實瑪利','Ishmael','創 16:15；25:12–16','夏甲所生。後代有十二個族長：尼拜約、基達、亞德別、米比衫、米施瑪、度瑪、瑪撒、哈達、提瑪、伊突、拿非施、基底瑪（創 25:13–16）。')],end:'十二個族長'},
+ {h:'基土拉 ♀（創 25:1–2）',items:[B('心蘭','Zimran','創 25:2'),B('約珊','Jokshan','創 25:2–3','生示巴、底但（創 25:3）。'),B('米但','Medan','創 25:2'),B('米甸','Midian','創 25:2, 4','米甸人的始祖。摩西的岳父葉忒羅是米甸的祭司（出 3:1）。'),B('伊施巴','Ishbak','創 25:2'),B('書亞','Shuah','創 25:2')]}],
+isaac:[
+ {h:'以掃（以東）的兒子（創 36:4–5）',items:[B('以掃','Esau','創 25:25；36:1','以撒的長子，就是以東。用長子的名分換了一碗紅豆湯（創 25:33）。'),B('以利法','Eliphaz','創 36:4, 12','以掃的長子；以利法的兒子亞瑪力是亞瑪力人的始祖（創 36:12）。'),B('流珥','Reuel','創 36:4'),B('耶烏施','Jeush','創 36:5'),B('雅蘭','Jalam','創 36:5'),B('可拉','Korah','創 36:5')],end:'以東人'}],
+jacob:[
+ {h:'利亞 ♀',items:[B('流便','Reuben','創 35:23'),B('西緬','Simeon','創 35:23'),B('利未','Levi','創 35:23','祭司支派；摩西、亞倫是利未的後代（出 6:16–20）。施洗約翰的母親伊利沙伯是「亞倫的後人」（路 1:5）。'),MAINL('猶大（主線）'),B('以薩迦','Issachar','創 35:23'),B('西布倫','Zebulun','創 35:23'),B('底拿','Dinah','創 30:21','雅各的女兒（創 34 章）。',{w:1})]},
+ {h:'拉結 ♀',items:[B('約瑟','Joseph','創 35:24；37–50 章','被賣到埃及，後來作宰相。兒子以法蓮、瑪拿西各算一個支派（創 48:5）。'),B('便雅憫','Benjamin','創 35:18, 24','拉結生他時難產而死（創 35:18）。保羅出於便雅憫支派（腓 3:5）。')]},
+ {h:'辟拉 ♀',items:[B('但','Dan','創 35:25'),B('拿弗他利','Naphtali','創 35:25')]},
+ {h:'悉帕 ♀',items:[B('迦得','Gad','創 35:26'),B('亞設','Asher','創 35:26')]}],
+judah:[
+ {h:'書亞的女兒 ♀（創 38:2–5）',items:[B('珥','Er','創 38:3, 7','猶大的長子，在 YHVH 眼中看為惡，早死。'),B('俄南','Onan','創 38:4, 8–10'),B('示拉','Shelah','創 38:5, 11','猶大答應把他給他瑪，卻沒有做到（創 38:14）。')]},
+ {h:'他瑪 ♀（創 38:27–30）',items:[MAINL('法勒斯（主線）'),B('謝拉','Zerah','創 38:30','法勒斯的雙生兄弟；生產時先伸出手，被繫上紅線（創 38:28–30）。')]}],
+boaz:[
+ {h:'路得 ♀ 的來歷',items:[B('哈蘭','Haran','創 11:27','亞伯蘭的兄弟。'),B('羅得','Lot','創 11:27'),B('摩押','Moab','創 19:37'),B('路得','Ruth','得 1:4；4:13','摩押女子，嫁給波阿斯，生俄備得（得 4:13–17）。旁支在這裡接回主線。',{w:1})],end:'→ 嫁給波阿斯'}]};
+const MODES={
+mary:['馬利亞的家譜','希里是馬利亞的父親，約瑟是他的女婿。路加 3:23 說「依人看來，他是約瑟的兒子」，留下這個空間。'],
+lev:['收繼婚','雅各和希里是兄弟。希里無子而死，雅各照申命記 25:5–6 娶了寡嫂，生下約瑟：約瑟血緣上是雅各的兒子，律法上是希里的兒子。'],
+royal:['王位線與血統線','馬太列的是大衛王位的繼承順序，路加列的是約瑟實際的血統。']};
+const LHEAD={mary:['馬太 · 所羅門線','路加 · 拿單線（解作馬利亞的家譜）'],lev:['馬太 · 所羅門線（約瑟的血緣）','路加 · 拿單線（約瑟律法上的家譜）'],royal:['馬太 · 所羅門線（王位繼承）','路加 · 拿單線（約瑟的血統）']};
+
+let mode='mary',sel=YESHUA.k;const open=new Set(['b-abraham','b-isaac','b-jacob']);
+try{const m=localStorage.getItem('yg-mode');if(MODES[m])mode=m}catch(e){}
+
+function row(n,side){
+  if(n.gap)return `<div class="row gap"><span class="g">${n.gap}</span></div>`;
+  if(n.ghost)return `<div class="row ghost"><span class="dot"></span><span class="num tw">${n.num}</span><span class="nm"><b>${n.zh}</b><span class="en">${n.en}</span></span></div>`;
+  if(n.fold){
+    if(open.has(n.fold))return n.items.map(m=>row(m,side)).join('')+`<div class="row"><button class="fold-btn" data-f="${n.fold}">收合 ▴</button></div>`;
+    return `<div class="row"><span class="dot fold"></span><button class="fold-btn" data-f="${n.fold}">${n.label} ▸</button></div>`;
+  }
+  const bo=n.br&&open.has('b-'+n.br);
+  return `<div class="row${sel===n.k?' sel':''}"${n.id?` id="a-${n.id}"`:''}>
+<span class="dot${n.note?' f':''}${n.q?' q':''}"></span>${n.num?`<span class="num${n.twice?' tw':''}">${n.num}</span>`:''}
+<button class="nm" data-k="${n.k}"><b>${n.zh}${n.king?CROWN:''}${n.q?'<em class="qm" aria-label="出處有疑問">?</em>':''}</b><span class="en">${n.en}${n.w?` <span class="wm">♀ ${n.w==='♀'?'':n.w}</span>`:''}</span></button>
+${n.twice?'<span class="tw-note">第二組的 14，也算第三組的 1</span>':''}
+${n.br?`<button class="brb" data-b="${n.br}" aria-expanded="${bo}">${bo?'收合旁支 ▴':'旁支 ▸'}</button>`:''}
+</div>${bo?band(n.br):''}`;
 }
-ySelect(ye);
-function yFilter(l){yNodeSel.classed("ye-dim",d=>l&&d.lane!=="both"&&d.lane!==l);yLinkSel.classed("ye-dim",d=>l&&d.lane!=="both"&&d.lane!==l);}
-document.getElementById("yeAll").onclick=()=>yFilter(null);
-document.getElementById("yeMt").onclick=()=>yFilter("mt");
-document.getElementById("yeLk").onclick=()=>yFilter("lk");
-let yTimer=null;const yBtn=document.getElementById("yePlay");
-function yStop(){if(yTimer){clearInterval(yTimer);yTimer=null;}yBtn.textContent="▶ 從亞伯拉罕播放";yNodeSel.classed("ye-hide",false);yLinkSel.classed("ye-hide",false);}
-yBtn.onclick=()=>{
-  if(yTimer){yStop();return;}
-  yFilter(null);yBtn.textContent="■ 停止";
-  if(reduce){yStop();return;}
-  let r=-1;const maxR=d3.max(yN,d=>d.row);
-  yNodeSel.classed("ye-hide",true);yLinkSel.classed("ye-hide",true);
-  yTimer=setInterval(()=>{r++;
-    yNodeSel.filter(d=>d.row===r).classed("ye-hide",false);yLinkSel.filter(d=>d.row===r).classed("ye-hide",false);
-    const cur=yN.find(d=>d.row===r&&d.lane!=="lk")||yN.find(d=>d.row===r);
-    if(cur&&r%4===0){const el=yNodeSel.filter(d=>d===cur).node();el&&el.scrollIntoView({block:"center",behavior:"smooth"});}
-    if(cur)ySelect(cur);
-    if(r>=maxR){clearInterval(yTimer);yTimer=null;yBtn.textContent="▶ 從亞伯拉罕播放";ySelect(ye);}
-  },160);
-};
+function band(key){
+  return `<div class="band">${BANDS[key].map(c=>`<div class="bcol"><div class="bh">${c.h}</div>${c.items.map(b=>b.main?`<span class="bi mainl">${b.zh}</span>`:`<button class="bi${b.note?' has':''}${sel===b.k?' sel':''}" data-k="${b.k}">${b.zh}${b.w?' <span class="wm">♀</span>':''}</button>`).join('')}${c.end?`<div class="bend">${c.end}</div>`:''}</div>`).join('')}</div>`;
+}
+const lane=(arr,cls)=>`<div class="lane ${cls}">${arr.map(n=>row(n)).join('')}</div>`;
+const cn=(paths)=>`<svg class="cn" viewBox="0 0 1000 46" preserveAspectRatio="none" aria-hidden="true">${paths}</svg>`;
+const P=(d,c,dash)=>`<path d="${d}" style="stroke:var(--${c})"${dash?' stroke-dasharray="6 5"':''}/>`;
+const SPLIT=cn(P('M500,0 C500,26 375,20 375,46','red')+P('M500,0 C500,26 625,20 625,46','green'));
+const MERGE=cn(P('M375,0 C375,26 500,20 500,46','red')+P('M625,0 C625,26 500,20 500,46','green'));
+
+function bottom(){
+  const red='red',grn='green';let p='',lab='';
+  const lbl=(x,y,t,al)=>lab+=`<span class="bl" style="left:${x}%;top:${y}px;transform:translate(${al==='r'?'-100%':al==='c'?'-50%':'0'},-50%)">${t}</span>`;
+  if(mode==='mary'){
+    p+=P('M375,0 L375,60',red)+P('M625,0 L625,60',grn,1);
+    lbl(64,30,'推論：希里是馬利亞的父親');
+  }else{
+    p+=P('M375,0 L375,60',red,mode==='royal')+P('M625,0 C625,34 375,26 375,60',grn,mode==='lev');
+    lbl(36,30,mode==='lev'?'血緣':'王位（法律上）','r');
+    lbl(50,16,mode==='lev'?'律法（收繼婚）':'血統','c');
+  }
+  p+=`<path d="M375,60 L625,60" style="stroke:var(--muted)" stroke-dasharray="2 4"/>`;
+  p+=`<path d="M375,60 C375,130 500,120 500,170" style="stroke:var(--fg)" stroke-dasharray="6 5"/>`;
+  p+=`<path d="M625,60 C625,130 500,120 500,170" style="stroke:var(--fg)"/>`;
+  lbl(50,60,'夫妻','c');lbl(42,128,'律法上的父親','r');lbl(58,128,'從馬利亞生的（太 1:16）');
+  const nd=(n,x,y,cls,color)=>`<div class="bn ${cls}${sel===n.k?' sel':''}" style="left:${x}%;top:${y}px;--lc:var(--${color})"><span class="dot f"></span>${n.num&&cls!=='yeshua'?`<span class="num" style="position:static;transform:none">${n.num}</span>`:''}<button class="nm" data-k="${n.k}"><b>${n.zh}</b><span class="en">${n.en}${n.w?' <span class="wm">♀</span>':''}</span></button></div>`;
+  return `<div class="bottom" id="a-bottom"><svg viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">${p}</svg>${lab}
+${nd(JOS,37.5,60,'lft','red')}${nd(MARY,62.5,60,'rgt','green')}${nd(YESHUA,50,170,'rgt yeshua','gold')}</div>`;
+}
+
+function render(){
+  const h=LHEAD[mode];
+  const ancOpen=open.has('anc');
+  document.getElementById('chart').innerHTML=
+`<div class="anc-wrap">${ancOpen?lane(ANC,'anc')+`<div class="lane anc"><div class="row"><button class="fold-btn" data-f="anc">收合 ▴</button></div></div>`:
+`<div class="lane anc" style="--ls:dashed"><div class="row"><span class="dot fold"></span><button class="fold-btn" data-f="anc">亞當 → 他拉 · 20 代（只有路加往上追到亞當）▸</button></div></div>`}
+<div class="anc-note">路加 3:36 在亞法撒和沙拉之間多了「該南」，創世記 11:12 沒有這一代。</div></div>
+<div class="grp"><b>第一組 14 代</b>亞伯拉罕 → 大衛（太 1:17）</div>
+${lane(TRUNK,'')}
+${SPLIT}
+<div class="grp"><b>第二組 14 代</b>所羅門 → 耶哥尼雅（大衛已算在第一組）</div>
+<div class="split">
+  <div class="lane l"><div class="lhead">${h[0]}</div>${MT_A.map(n=>row(n)).join('')}</div>
+  <div class="lane rt"><div class="lhead">${h[1]}</div>${LK_A.map(n=>row(n)).join('')}</div>
+</div>
+<div class="exile" id="a-exile">被擄到巴比倫</div>
+${MERGE}
+<div class="grp"><b>第三組 14 代</b>耶哥尼雅（重算）→ Yeshua</div>
+${lane(MID,'')}
+${SPLIT}
+<div class="split">
+  <div class="lane l">${MT_B.map(n=>row(n)).join('')}</div>
+  <div class="lane rt">${LK_B.map(n=>row(n)).join('')}</div>
+</div>
+${bottom()}`;
+  document.getElementById('modes').innerHTML=Object.entries(MODES).map(([k,v])=>`<button data-m="${k}" aria-pressed="${k===mode}">${v[0]}</button>`).join('');
+  document.getElementById('mtext').textContent=MODES[mode][1];
+  info();
+}
+
+function info(){
+  const n=ALL[sel],s=SRC[n.s]||SRC.both;
+  let src=s[0];
+  if(n===MARY)src=mode==='mary'?'路加線（依馬利亞家譜的解釋）':'兩份族譜都提到';
+  document.getElementById('info').innerHTML=`<h3>${n.zh}<span>${n.en}</span></h3>
+<div class="meta"><span class="badge src" style="--bc:${s[1]}">${src}</span><span class="badge">${n.ref}</span>${n.num?`<span class="badge">馬太算法第 ${n.num} 代</span>`:''}${n.king?'<span class="badge">猶大王</span>':''}</div>
+${n.note?`<p>${n.note}</p>`:'<p class="empty">這一代經文只記了名字，沒有其他記載。</p>'}`;
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.k){sel=b.dataset.k;render();return}
+  if(b.dataset.f){const f=b.dataset.f;open.has(f)?open.delete(f):open.add(f);render();return}
+  if(b.dataset.b){const f='b-'+b.dataset.b;open.has(f)?open.delete(f):open.add(f);render();return}
+  if(b.dataset.p){rp=b.dataset.p;rs=-1;renderMap();return}
+  if(b.dataset.s!==undefined){const v=+b.dataset.s;rs=rs===v?-1:v;renderMap(true);return}
+  if(b.dataset.m){mode=b.dataset.m;try{localStorage.setItem('yg-mode',mode)}catch(e){}render();return}
+  if(b.dataset.go){
+    const g=b.dataset.go;
+    if(['adam','noah','shem'].includes(g))open.add('anc');
+    const tk={adam:'adam',noah:'noah',shem:'shem',abraham:'abraham',david:'david',yeshua:'yeshua'};
+    if(tk[g]){const n=Object.values(ALL).find(x=>x.id===tk[g]);if(n)sel=n.k}
+    if(g==='route'){document.getElementById('tab-route').click();window.scrollTo(0,0);return}
+    render();
+    const el=document.getElementById(g==='yeshua'?'a-bottom':'a-'+g);
+    if(el)el.scrollIntoView({block:'center'});
+  }
+});
+
+/* ---------- 遷移路線 ---------- */
+const PL={ur:['吾珥',46.10,30.96],haran:['哈蘭',39.03,36.86],damascus:['大馬士革',36.29,33.51,'l'],dan:['但',35.65,33.25],shechem:['示劍',35.28,32.21],bethel:['伯特利',35.22,31.93],jerusalem:['耶路撒冷',35.23,31.78],bethlehem:['以法他（伯利恆）',35.20,31.70,'l'],hebron:['希伯崙（幔利）',35.10,31.53],beersheba:['別是巴',34.79,31.25],gerar:['基拉耳',34.60,31.38],lahai:['庇耳拉海萊',34.50,30.95],egypt:['埃及',31.25,30.3,'l'],goshen:['歌珊',31.85,30.75],gilead:['基列山',35.80,32.45],peniel:['毗努伊勒',35.68,32.19]};
+const RT={
+abram:{name:'亞伯蘭',c:'gold',stops:[['ur','他拉帶亞伯蘭、撒萊、羅得離開迦勒底的吾珥','創 11:31'],['haran','住在哈蘭，他拉死在那裡；亞伯蘭七十五歲時離開','創 11:31–32；12:4'],['shechem','摩利橡樹。YHVH 說「我要把這地賜給你的後裔」，亞伯蘭築壇','創 12:6–7'],['bethel','在伯特利東邊支搭帳棚、築壇','創 12:8'],['egypt','遇到饑荒，下埃及寄居','創 12:10'],['bethel','回到起先築壇的地方，和羅得分開','創 13:3–11'],['hebron','住在幔利橡樹那裡，築壇','創 13:18'],['dan','追趕擄走羅得的四王到但，直到大馬士革左邊的何巴','創 14:14–15'],['jerusalem','撒冷王麥基洗德帶著餅和酒出來迎接','創 14:18'],['gerar','寄居基拉耳','創 20:1'],['beersheba','與亞比米勒立約，栽垂絲柳樹','創 21:31–33'],['jerusalem','在摩利亞山獻以撒；聖殿後來建在摩利亞山','創 22:2；代下 3:1'],['beersheba','回到別是巴','創 22:19'],['hebron','撒拉死在希伯崙，亞伯拉罕買下麥比拉洞；他自己也葬在那裡','創 23:2, 19；25:9–10']]},
+isaac:{name:'以撒',c:'violet',stops:[['lahai','住在南地的庇耳拉海萊，在那裡迎娶利百加','創 24:62–67；25:11'],['gerar','遇到饑荒，YHVH 吩咐他不要下埃及，寄居基拉耳','創 26:1–6'],['beersheba','YHVH 向他顯現，他築壇、挖井','創 26:23–25'],['hebron','雅各回來時以撒住在幔利；死後葬在麥比拉洞','創 35:27–29；49:31']]},
+jacob:{name:'雅各',c:'blue',stops:[['beersheba','離開別是巴往哈蘭去','創 28:10'],['bethel','夢見梯子，把那地方叫作伯特利','創 28:12–19'],['haran','在舅舅拉班家二十年，娶利亞、拉結','創 29–31 章'],['gilead','拉班在基列山追上，立石堆為證','創 31:23, 44–48'],['peniel','與那人摔跤到黎明，改名以色列','創 32:24–30'],['shechem','買了一塊地，築壇','創 33:18–20'],['bethel','回伯特利築壇， 上帝再確認他名叫以色列','創 35:1–15'],['bethlehem','拉結生便雅憫時死了，葬在往以法他的路旁','創 35:16–19'],['hebron','回到父親以撒那裡','創 35:27'],['beersheba','下埃及前獻祭， 上帝說「不要怕下埃及去」','創 46:1–4'],['goshen','全家七十人下埃及，住在歌珊','創 46:27–28；47:27']]}};
+const MAPS={big:{lon0:29,lon1:49,lat0:29,lat1:38.5,k:32,fs:15},zoom:{lon0:34.2,lon1:36.4,lat0:30.8,lat1:33.7,k:150,fs:12.5}};
+const SEA=[[28,31],[29.9,31.2],[31,31.6],[32.3,31.2],[33.5,31.1],[34.2,31.3],[34.5,31.6],[34.75,32.1],[34.9,32.5],[35.0,32.85],[35.1,33.1],[35.2,33.4],[35.5,33.9],[35.8,34.5],[35.9,35.2],[35.9,35.9],[36.2,36.6],[35.8,36.8],[34.6,36.8],[33,36.2],[32,36.6],[30.5,36.8],[28,37]];
+const WATER=[SEA,[[47.9,30.4],[48.6,29.9],[50,29.4],[50,28],[48.3,28],[47.7,29.3]],[[32.55,29.95],[32.75,29.6],[33.5,28.3],[32.9,28],[32.3,29.3]],[[34.95,29.55],[34.75,28.5],[34.4,28.2],[34.6,29.2]],[[35.4,31.77],[35.58,31.77],[35.6,31.3],[35.45,31.05],[35.38,31.35]]];
+const RIVERS=[[[38.3,37.3],[38,36.7],[38.2,36],[39,35.9],[40.2,35.2],[41,34.4],[42,34.2],[43.5,33.2],[44.3,32.4],[45.5,31.6],[46.4,31],[47.4,30.9],[47.9,30.4]],[[40.2,38.2],[41.5,37.3],[42.7,36.6],[43.2,35.8],[43.8,34.8],[44.3,33.6],[45.1,32.9],[46,32],[47,31.2],[47.4,30.9]],[[31.1,28.5],[31.2,30.1],[30.4,31.4]],[[31.2,30.1],[31.8,31.45]],[[35.62,33.2],[35.6,32.92]],[[35.57,32.72],[35.55,32.3],[35.53,31.77]]];
+let rp='abram',rs=-1;
+function mapSVG(id){
+  const m=MAPS[id],W=(m.lon1-m.lon0)*m.k,H=(m.lat1-m.lat0)*m.k,fs=m.fs;
+  const pr=(lo,la)=>[(lo-m.lon0)*m.k,(m.lat1-la)*m.k];
+  const pts=a=>a.map(p=>pr(p[0],p[1]).map(v=>v.toFixed(1)).join(',')).join(' ');
+  const txt=(lo,la,t,cls='',anchor='start',dx=0)=>{const[x,y]=pr(lo,la);return `<text x="${(x+dx).toFixed(1)}" y="${(y+fs*.35).toFixed(1)}" font-size="${fs}" text-anchor="${anchor}" class="${cls}">${t}</text>`};
+  const people=rp==='all'?Object.keys(RT):[rp];
+  let s=`<svg class="map" viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" role="img" aria-label="${id==='big'?'全區地圖':'迦南放大地圖'}"><defs>`;
+  people.forEach(p=>{const c=RT[p].c;s+=`<marker id="ar-${id}-${p}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" style="fill:var(--${c})"/></marker>`});
+  s+=`</defs><rect class="land" width="${W}" height="${H}"/>`;
+  WATER.forEach(a=>s+=`<polygon class="sea" points="${pts(a)}"/>`);
+  {const[x,y]=pr(35.58,32.82);s+=`<ellipse class="sea" cx="${x}" cy="${y}" rx="${.065*m.k}" ry="${.1*m.k}"/>`}
+  RIVERS.forEach(a=>s+=`<polyline class="river" points="${pts(a)}"/>`);
+  if(id==='big'){
+    const z=MAPS.zoom,[x0,y0]=pr(z.lon0,z.lat1),[x1,y1]=pr(z.lon1,z.lat0);
+    s+=`<rect class="box" x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}"/>`;
+    s+=txt(31.2,34.3,'大海（地中海）','rg')+txt(40.2,34.6,'幼發拉底河','rg')+txt(44.6,35.2,'底格里斯河','rg')+txt(z.lon0,z.lat0-.45,'迦南（右圖放大）','rg');
+  }else{
+    s+=txt(34.25,32.75,'大海','rg')+txt(35.66,31.45,'死海','rg')+txt(35.7,32.82,'加利利海','rg')+txt(35.6,32.0,'約但河','rg')+txt(36.35,33.62,'往大馬士革、哈蘭 ↗','rg','end')+txt(34.25,30.88,'↙ 往埃及','rg');
+  }
+  const seq=[];
+  people.forEach(p=>{const st=RT[p].stops;for(let i=1;i<st.length;i++){if(st[i][0]===st[i-1][0])continue;
+    const[a1,a2]=pr(PL[st[i-1][0]][1],PL[st[i-1][0]][2]),[b1,b2]=pr(PL[st[i][0]][1],PL[st[i][0]][2]);
+    const dx=b1-a1,dy=b2-a2,cx=(a1+b1)/2-dy*.18,cy=(a2+b2)/2+dx*.18;
+    seq.push(`<path class="rt" pathLength="1" style="stroke:var(--${RT[p].c});animation-delay:${(seq.length*.12).toFixed(2)}s" marker-end="url(#ar-${id}-${p})" d="M${a1.toFixed(1)},${a2.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${b1.toFixed(1)},${b2.toFixed(1)}"/>`)}});
+  s+=seq.join('');
+  const nums={};people.forEach(p=>RT[p].stops.forEach((st,i)=>{(nums[st[0]]=nums[st[0]]||[]).push(i+1)}));
+  const inZoom=k=>{const z=MAPS.zoom,q=PL[k];return q[1]>=z.lon0&&q[1]<=z.lon1&&q[2]>=z.lat0&&q[2]<=z.lat1};
+  Object.keys(nums).forEach(k=>{const q=PL[k],[x,y]=pr(q[1],q[2]);
+    if(x<0||y<0||x>W||y>H)return;
+    s+=`<circle class="pl" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${id==='big'?3.5:4.5}"/>`;
+    if(id==='big'&&inZoom(k))return;
+    const lab=q[0]+(rp==='all'?'':' '+nums[k].join('·'));
+    s+=q[3]==='l'?txt(q[1],q[2],lab,'','end',-8):txt(q[1],q[2],lab,'','start',8);
+  });
+  if(rs>=0&&rp!=='all'){const k=RT[rp].stops[rs][0],[x,y]=pr(PL[k][1],PL[k][2]);s+=`<circle class="ring" cx="${x}" cy="${y}" r="${id==='big'?9:12}" style="stroke:var(--${RT[rp].c})"/>`}
+  return s+'</svg>';
+}
+function renderMap(keepMaps){
+  document.getElementById('pbtn').innerHTML=[...Object.entries(RT).map(([k,v])=>[k,v.name]),['all','三人一起看']].map(([k,t])=>`<button data-p="${k}" aria-pressed="${k===rp}">${t}</button>`).join('');
+  document.getElementById('mbig').innerHTML=mapSVG('big');
+  document.getElementById('mzoom').innerHTML=mapSVG('zoom');
+  if(keepMaps)document.querySelectorAll('.map .rt').forEach(p=>p.style.animation='none');
+  const people=rp==='all'?Object.keys(RT):[rp];
+  document.getElementById('stops').innerHTML=people.map(p=>`${people.length>1?`<h3 style="color:var(--${RT[p].c})">${RT[p].name}</h3>`:''}`+RT[p].stops.map((st,i)=>`<li><button class="stop${rp===p&&rs===i?' on':''}" ${people.length>1?'':`data-s="${i}"`} style="--c:var(--${RT[p].c})"><span class="n">${i+1}</span><span><b>${PL[st[0]][0]}</b><span>${st[1]}</span><small>${st[2]}</small></span></button></li>`).join('')).join('');
+}
+renderMap();
+
+document.getElementById('ov').innerHTML=[
+['adam','亞當','lk'],['創 5 · 10 代'],['noah','挪亞','lk'],['兒子'],['shem','閃','lk'],['創 11 · 10 代'],
+['abraham','亞伯拉罕'],['第一組 14 代'],['david','大衛'],['第二組 14 代'],['exile','被擄','ex'],['第三組 14 代'],['yeshua','Yeshua']
+].map(a=>a.length===1?`<div class="seg">${a[0]}</div>`:`<button class="chip ${a[2]||''}" data-go="${a[0]}"><i></i><b>${a[1]}</b></button>`).join('');
+
+render();
+
+})();
 
 // ---------- 分頁 ----------
-const tabs=[["tab-tree","view-tree"],["tab-tl","view-tl"],["tab-ye","view-ye"]];
-tabs.forEach(([t,v])=>document.getElementById(t).addEventListener("click",()=>{
-  tabs.forEach(([t2,v2])=>{document.getElementById(t2).setAttribute("aria-selected",t2===t);document.getElementById(v2).hidden=v2!==v;});
-  if(v==="view-tl")growBars(); else if(v==="view-tree")requestAnimationFrame(()=>fit(0));
-}));
-if(location.hash==="#timeline")document.getElementById("tab-tl").click();
-if(location.hash==="#yeshua")document.getElementById("tab-ye").click();
+const tabs=[["tab-tree","view-tree","tree"],["tab-tl","view-tl","timeline"],["tab-ye","view-ye","yeshua"],["tab-route","view-route","route"]];
+function showTab(t){
+  tabs.forEach(([t2,v2,h2])=>{document.getElementById(t2).setAttribute("aria-selected",t2===t);document.getElementById(v2).hidden=t2!==t;
+    if(t2===t)try{history.replaceState(null,"","#"+h2)}catch(e){}});
+  if(t==="tab-tl")growBars(); else if(t==="tab-tree")requestAnimationFrame(()=>fit(0));
+}
+tabs.forEach(([t])=>document.getElementById(t).addEventListener("click",()=>showTab(t)));
+function fromHash(){const h=location.hash.slice(1);const m=tabs.find(x=>x[2]===h);if(m)showTab(m[0]);}
+window.addEventListener("hashchange",fromHash);
+fromHash();
 </script>
 </body>
 </html>
