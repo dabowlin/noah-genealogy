@@ -429,7 +429,7 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
     <h2 id="rh">亞伯蘭之後的遷移路線</h2>
     <div class="seg-btns" id="pbtn"></div>
     <div class="maps" id="maps"><div class="mapbox"><div id="mbig"></div><div class="zc" role="group" aria-label="全區地圖縮放"><button data-z="mbig:in" aria-label="放大">＋</button><button data-z="mbig:out" aria-label="縮小">−</button><button class="zr" data-z="mbig:reset" aria-label="還原">還原</button><button class="za" data-a="1" aria-label="暫停動畫">❚❚</button></div></div></div>
-    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。迦南一帶地名很密，點虛線框（或按 ＋）放大後才會顯示地名；點下面的站可以在地圖上標出來。路線會自動從起點走到終點、循環播放，右上角 ❚❚ 可以暫停。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
+    <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。迦南一帶地名很密，點虛線框（或按 ＋）放大後才會顯示地名；點下面的站可以在地圖上標出來。路線會自動從起點走到終點、循環播放，走到迦南裡面會自動拉近顯示地名，走長途再自動拉遠；右上角 ❚❚ 可以暫停。自己縮放或拖曳之後鏡頭就不再自動移動，按「還原」恢復。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
     <ol class="stops" id="stops"></ol>
   </div>
 </div>
@@ -899,8 +899,8 @@ document.addEventListener('click',e=>{
   if(b.dataset.f){const f=b.dataset.f;open.has(f)?open.delete(f):open.add(f);render();return}
   if(b.dataset.b){const f='b-'+b.dataset.b;open.has(f)?open.delete(f):open.add(f);render();return}
   if(b.dataset.a){animPaused=!animPaused;b.textContent=animPaused?'▶':'❚❚';b.setAttribute('aria-label',animPaused?'播放動畫':'暫停動畫');return}
-  if(b.dataset.z){const[i,a]=b.dataset.z.split(':'),id=i==='mbig'?'big':'zoom';if(a==='reset'){VW[id]=null;applyV(id)}else zoomAt(id,a==='in'?1.6:1/1.6,.5,.5);return}
-  if(b.dataset.p){rp=b.dataset.p;rs=-1;renderMap();return}
+  if(b.dataset.z){const[i,a]=b.dataset.z.split(':'),id=i==='mbig'?'big':'zoom';if(a==='reset'){autoCam=true;VW[id]=null;applyV(id)}else{autoCam=false;zoomAt(id,a==='in'?1.6:1/1.6,.5,.5)}return}
+  if(b.dataset.p){autoCam=true;rp=b.dataset.p;rs=-1;renderMap();return}
   if(b.dataset.s!==undefined){const v=+b.dataset.s;rs=rs===v?-1:v;renderMap(true);return}
   if(b.dataset.m){mode=b.dataset.m;try{localStorage.setItem('yg-mode',mode)}catch(e){}render();return}
   if(b.dataset.go){
@@ -998,8 +998,8 @@ function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.ma
 ['big'].forEach(id=>{
   const box=boxOf(id),pts=new Map();let last=null;
   const frac=e=>{const r=box.querySelector('svg').getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height,r]};
-  box.addEventListener('wheel',e=>{if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();const[px,py]=frac(e);zoomAt(id,Math.exp(-e.deltaY*(e.deltaMode?0.05:0.01)),px,py)},{passive:false});
-  box.addEventListener('dblclick',e=>{e.preventDefault();const[px,py]=frac(e);zoomAt(id,e.shiftKey?.5:2,px,py)});
+  box.addEventListener('wheel',e=>{if(!(e.ctrlKey||e.metaKey))return;e.preventDefault();autoCam=false;const[px,py]=frac(e);zoomAt(id,Math.exp(-e.deltaY*(e.deltaMode?0.05:0.01)),px,py)},{passive:false});
+  box.addEventListener('dblclick',e=>{e.preventDefault();autoCam=false;const[px,py]=frac(e);zoomAt(id,e.shiftKey?.5:2,px,py)});
   box.addEventListener('pointerdown',e=>{pts.set(e.pointerId,[e.clientX,e.clientY]);if(VW[id]||pts.size>1){try{box.setPointerCapture(e.pointerId)}catch(_){}}last=null});
   box.addEventListener('pointermove',e=>{
     if(!pts.has(e.pointerId))return;pts.set(e.pointerId,[e.clientX,e.clientY]);
@@ -1008,7 +1008,7 @@ function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.ma
     if(last&&last.n===p.length){
       let w=v.w,x=v.x,y=v.y;
       if(p.length>1&&last.d>0&&d>0){const nw=Math.min(F.w,Math.max(F.w/ZMAX,v.w*last.d/d)),px=(cx-r.left)/r.width,py=(cy-r.top)/r.height;x+=(v.w-nw)*px;y+=(v.h-nw*F.h/F.w)*py;w=nw}
-      if(VW[id]||w<F.w){x-=(cx-last.cx)*w/r.width;y-=(cy-last.cy)*w/r.width;setV(id,x,y,w)}
+      if(VW[id]||w<F.w){autoCam=false;x-=(cx-last.cx)*w/r.width;y-=(cy-last.cy)*w/r.width;setV(id,x,y,w)}
     }
     last={n:p.length,cx,cy,d};
   });
@@ -1016,7 +1016,7 @@ function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.ma
     if(VW[id]||e.target.closest('button'))return;
     const m=MAPS.big,c=MAPS.zoom,F=fullV(id),[fx,fy]=frac(e),lo=m.lon0+fx*(m.lon1-m.lon0),la=m.lat1-fy*(m.lat1-m.lat0);
     if(lo<c.lon0||lo>c.lon1||la<c.lat0||la>c.lat1)return;
-    const r0=box.querySelector('svg').getBoundingClientRect(),w=Math.min((c.lat1-c.lat0+.2)*m.k*F.w/F.h,r0.width/115*m.k),h=w*F.h/F.w;
+    autoCam=false;const r0=box.querySelector('svg').getBoundingClientRect(),w=Math.min((c.lat1-c.lat0+.2)*m.k*F.w/F.h,r0.width/115*m.k),h=w*F.h/F.w;
     setV(id,((c.lon0+c.lon1)/2-m.lon0)*m.k-w/2,(m.lat1-(c.lat0+c.lat1)/2)*m.k-h/2,w);
   });
   if(window.ResizeObserver)new ResizeObserver(()=>applyV(id)).observe(box);
@@ -1024,7 +1024,7 @@ function zoomAt(id,f,px,py){const F=fullV(id),v=VW[id]||F,w=Math.min(F.w,Math.ma
   box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);
 });
 /* 路線動畫：一段一段從起點畫到終點，圓點跟著走，走完停一下再從頭循環 */
-let animTok=0,animPaused=false;
+let animTok=0,animPaused=false,autoCam=true;
 const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function startAnim(){
   const tok=++animTok,svg=boxOf('big').querySelector('svg');if(!svg)return;
@@ -1032,7 +1032,11 @@ function startAnim(){
   const show=(p,f)=>{p.style.strokeDashoffset=1-f;p.style.visibility=f>0?'visible':'hidden';p.classList.toggle('dn',f>=1)};
   let cur=-2;const mark=i=>{if(i===cur)return;cur=i;document.querySelectorAll('#stops .stop').forEach(b=>b.classList.toggle('now',b.dataset.s!==undefined&&+b.dataset.s===i))};
   if(REDUCE||rs>=0||!ps.length){ps.forEach(p=>show(p,1));mv.style.display='none';mark(-1);return}
-  const SEG=1100,HOLD=450,END=2600,STEP=SEG+HOLD,L=ps.map(p=>p.getTotalLength()),total=ps.length*STEP+END,ease=u=>u*u*(3-2*u);
+  const SEG=1500,HOLD=750,END=3000,STEP=SEG+HOLD,L=ps.map(p=>p.getTotalLength()),total=ps.length*STEP+END,ease=u=>u*u*(3-2*u);
+  /* 自動鏡頭：這一段路短（在迦南裡）就拉近到看得到地名，路長就拉遠；手動縮放或拖曳後停用，按「還原」恢復 */
+  const camFor=k=>{const F=fullV('big'),m=MAPS.big,c=MAPS.zoom,rw=svg.getBoundingClientRect().width||F.w,a=ps[k].getPointAtLength(0),b=ps[k].getPointAtLength(L[k]);
+    const w=Math.max(Math.min((c.lat1-c.lat0+.2)*m.k*F.w/F.h,rw/115*m.k),Math.abs(a.x-b.x)*1.6+50,(Math.abs(a.y-b.y)*1.6+36)*F.w/F.h);
+    return w>F.w*.75?F:{x:(a.x+b.x)/2-w/2,y:(a.y+b.y)/2-w*F.h/F.w/2,w}};
   let t=0,last=performance.now();
   ps.forEach(p=>show(p,0));
   requestAnimationFrame(function frame(now){
@@ -1043,6 +1047,10 @@ function startAnim(){
     const pt=ps[k].getPointAtLength(L[k]*e);
     mv.setAttribute('cx',pt.x);mv.setAttribute('cy',pt.y);mv.style.fill=ps[k].style.stroke;mv.style.display='';
     mark(+ps[k].dataset.i-(u>=1?0:1));
+    if(autoCam&&!animPaused){
+      const F=fullV('big'),v=VW.big||F,tg=end?F:camFor(u>=1&&k<ps.length-1?k+1:k),a=Math.abs(tg.w-v.w)<.4&&Math.abs(tg.x-v.x)<.4&&Math.abs(tg.y-v.y)<.4?1:1-Math.exp(-dt/380);
+      if(VW.big||tg!==F)setV('big',v.x+(tg.x-v.x)*a,v.y+(tg.y-v.y)*a,v.w+(tg.w-v.w)*a);
+    }
     requestAnimationFrame(frame);
   });
 }
