@@ -324,6 +324,44 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 .yx .info{position:sticky;top:auto;bottom:0;max-height:42vh;overflow:auto;box-shadow:0 -8px 24px rgba(0,0,0,.45);padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 .yx .nm b{font-size:14px}
 .yx .branch{font-size:12.5px}}
+/* ---- 雅各生平年表 ---- */
+.jx{display:flex;flex-direction:column;gap:14px}
+.jx .jhow{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.jx .jhow h2{font:700 20px var(--serif);margin:0 0 6px}
+.jx .jhow p{margin:0;max-width:70ch}
+.jx .jhow ol{margin:8px 0 0;padding-left:1.5em;max-width:70ch}
+.jx .jhow li{margin-bottom:3px}
+.jx .jbar{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow-x:auto}
+.jx .jbar svg{display:block;width:100%;min-width:640px;height:auto}
+.jx .jbar .band{opacity:.26}
+.jx .jbar .ph{font-size:12.5px;font-weight:700;fill:var(--fg)}
+.jx .jbar .yr{font-size:11px;fill:var(--muted)}
+.jx .jm{cursor:pointer}
+.jx .jm circle{fill:var(--panel);stroke:var(--c);stroke-width:2.5}
+.jx .jm.f circle{fill:var(--c)}
+.jx .jm.sel circle{stroke:var(--fg);stroke-width:3.5}
+.jx .jm text{font-size:13px;font-weight:700;fill:var(--fg);font-variant-numeric:tabular-nums}
+.jx .evs{list-style:none;margin:0;padding:6px 0 10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;min-width:0}
+.jx .evs .phh{display:flex;align-items:center;gap:10px;padding:12px 14px 4px;font-size:12.5px;font-weight:700;color:var(--fg)}
+.jx .evs .phh i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.jx .evs .phh::after{content:"";flex:1;border-top:1px solid var(--line)}
+.jx .ev{display:grid;grid-template-columns:92px 18px minmax(0,1fr);gap:0 10px;align-items:start;width:100%;text-align:left;padding:7px 14px;position:relative}
+.jx .ev::before{content:"";position:absolute;left:124px;top:0;bottom:0;border-left:2px solid var(--c);opacity:.45}
+.jx .ev:hover{background:var(--bg)}
+.jx .ev.sel{background:var(--gold-soft)}
+.jx .ev .ag{text-align:right;font:700 16px/1.4 var(--serif);font-variant-numeric:tabular-nums}
+.jx .ev .ag small{display:block;font:400 11px/1.3 var(--sans);color:var(--muted)}
+.jx .ev .dt{width:14px;height:14px;border-radius:50%;border:2px solid var(--c);background:var(--panel);margin:5px 2px 0;position:relative;z-index:1}
+.jx .ev .dt.f{background:var(--c)}
+.jx .ev .dt.q{border-style:dashed}
+.jx .ev .tx b{font-size:15px;display:block;line-height:1.4}
+.jx .ev .tx small{font-size:12px;color:var(--muted)}
+.jx .ev.sel .tx b{text-decoration:underline;text-underline-offset:3px}
+.jx .lg{width:13px;height:13px;border-radius:50%;border:2px solid var(--muted);display:inline-block}
+.jx .lg.f{background:var(--muted)}
+.jx .lg.q{border-style:dashed}
+.jx .info h4{margin:6px 0 0;font:600 12px var(--sans);letter-spacing:.06em;color:var(--muted)}
+@media (max-width:520px){.jx .ev{grid-template-columns:70px 18px minmax(0,1fr);padding-inline:10px}.jx .ev::before{left:98px}.jx .ev .ag{font-size:14px}}
 </style>
 </head>
 <body>
@@ -332,7 +370,7 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
   <header>
     <div>
       <h1>挪亞的後代<span class="he">תּוֹלְדֹת נֹחַ</span></h1>
-      <p class="sub">創世記 10 章「列國表」與 11 章閃到亞伯蘭的十代 · 新約 Yeshua 族譜 · 先祖的遷移路線 · 和合本譯名 · 附經文註解</p>
+      <p class="sub">創世記 10 章「列國表」與 11 章閃到亞伯蘭的十代 · 新約 Yeshua 族譜 · 先祖的遷移路線 · 雅各生平年表 · 和合本譯名 · 附經文註解</p>
     </div>
   </header>
 
@@ -342,6 +380,7 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
     <button role="tab" id="tab-tl" aria-selected="false" aria-controls="view-tl"><b>壽數時間軸</b><span>挪亞到亞伯拉罕，誰和誰同時在世</span></button>
     <button role="tab" id="tab-ye" aria-selected="false" aria-controls="view-ye"><b>Yeshua 族譜</b><span>馬太與路加兩份族譜，從亞當到 Yeshua</span></button>
     <button role="tab" id="tab-route" aria-selected="false" aria-controls="view-route"><b>遷移路線</b><span>亞伯蘭、以撒、雅各走過的地方</span></button>
+    <button role="tab" id="tab-jacob" aria-selected="false" aria-controls="view-jacob"><b>雅各生平年表</b><span>從出生到 147 歲，每件事發生時他幾歲</span></button>
   </div>
 
   <section id="view-tree" role="tabpanel" aria-labelledby="tab-tree">
@@ -435,6 +474,31 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
     <p class="caveat">示意地圖，位置大約；庇耳拉海萊、基列山的確切地點不詳。迦南一帶地名很密，點虛線框（或按 ＋）放大後才會顯示地名；點下面的站可以在地圖上標出來。路線會自動從起點走到終點、循環播放，走到迦南裡面會自動拉近顯示地名，走長途再自動拉遠；右上角 ❚❚ 可以暫停。自己縮放或拖曳之後鏡頭就不再自動移動，按「還原」恢復。<br>放大地圖：按右上角 ＋／−，或在地圖上點兩下、雙指撥開（電腦可按住 Ctrl／⌘ 滾滾輪）；放大後可以拖曳移動，按「還原」回到原來大小。</p>
     <ol class="stops" id="stops"></ol>
   </div>
+</div>
+  </section>
+  <section id="view-jacob" role="tabpanel" aria-labelledby="tab-jacob" hidden>
+<div class="yx jx">
+  <div class="jhow">
+    <h2>雅各生平年表</h2>
+    <p>創世記沒有直接寫雅各每件事發生時幾歲，但留下了幾個數字，可以往回推算。這裡只用經文裡的數字：</p>
+    <ol>
+      <li>雅各見法老時 <b>130 歲</b>（創 47:9）。</li>
+      <li>那時約瑟 <b>39 歲</b>：30 歲見法老（41:46），過了 7 個豐年，饑荒又過了 2 年（45:6）。所以約瑟出生時，雅各 <b>91 歲</b>。</li>
+      <li>約瑟出生時，雅各剛為拉班的兩個女兒服事滿 14 年（30:25；31:41）。所以他到哈蘭時 <b>77 歲</b>。</li>
+      <li>他在拉班家一共 20 年（31:41），離開時 <b>97 歲</b>。</li>
+    </ol>
+  </div>
+  <div class="jbar" id="jbar"></div>
+  <div class="legend">
+    <span><i class="lg f"></i>經文直接寫出年齡</span>
+    <span><i class="lg"></i>由經文數字推算</span>
+    <span><i class="lg q"></i>經文沒有寫年齡，只能知道先後</span>
+  </div>
+  <div class="main">
+    <ol class="evs" id="jevs"></ol>
+    <aside class="info" id="jinfo" aria-live="polite"></aside>
+  </div>
+  <p class="note">年齡只根據創世記經文裡的數字推算，沒有採用聖經以外的說法。「創世紀年」的算法和「壽數時間軸」分頁相同（雅各生於創世 2108 年）。譯名與經文引用依和合本。<button class="golink" data-jgo="route">看雅各的遷移路線 →</button></p>
 </div>
   </section>
 
@@ -923,7 +987,7 @@ const PL={ur:['吾珥',46.10,30.96],haran:['哈蘭',39.03,36.86],damascus:['大�
 const RT={
 abram:{name:'亞伯蘭',c:'gold',stops:[['ur','他拉帶亞伯蘭、撒萊、羅得離開迦勒底的吾珥','創 11:31'],['haran','住在哈蘭，他拉死在那裡；亞伯蘭七十五歲時離開','創 11:31–32；12:4'],['shechem','摩利橡樹。YHVH 說「我要把這地賜給你的後裔」，亞伯蘭築壇','創 12:6–7'],['bethel','在伯特利東邊支搭帳棚、築壇','創 12:8'],['egypt','遇到饑荒，下埃及寄居','創 12:10'],['bethel','回到起先築壇的地方，和羅得分開','創 13:3–11'],['hebron','住在幔利橡樹那裡，築壇','創 13:18'],['dan','追趕擄走羅得的四王到但，直到大馬士革左邊的何巴','創 14:14–15'],['jerusalem','撒冷王麥基洗德帶著餅和酒出來迎接','創 14:18'],['gerar','寄居基拉耳','創 20:1'],['beersheba','與亞比米勒立約，栽垂絲柳樹','創 21:31–33'],['jerusalem','在摩利亞山獻以撒；聖殿後來建在摩利亞山','創 22:2；代下 3:1'],['beersheba','回到別是巴','創 22:19'],['hebron','撒拉死在希伯崙，亞伯拉罕買下麥比拉洞；他自己也葬在那裡','創 23:2, 19；25:9–10']]},
 isaac:{name:'以撒',c:'violet',stops:[['lahai','住在南地的庇耳拉海萊，在那裡迎娶利百加','創 24:62–67；25:11'],['gerar','遇到饑荒，YHVH 吩咐他不要下埃及，寄居基拉耳','創 26:1–6'],['beersheba','YHVH 向他顯現，他築壇、挖井','創 26:23–25'],['hebron','雅各回來時以撒住在幔利；死後葬在麥比拉洞','創 35:27–29；49:31']]},
-jacob:{name:'雅各',c:'blue',stops:[['beersheba','離開別是巴往哈蘭去','創 28:10'],['bethel','夢見梯子，把那地方叫作伯特利','創 28:12–19'],['haran','在舅舅拉班家二十年，娶利亞、拉結','創 29–31 章'],['gilead','拉班在基列山追上，立石堆為證','創 31:23, 44–48'],['peniel','與那人摔跤到黎明，改名以色列','創 32:24–30'],['shechem','買了一塊地，築壇','創 33:18–20'],['bethel','回伯特利築壇， 上帝再確認他名叫以色列','創 35:1–15'],['bethlehem','拉結生便雅憫時死了，葬在往以法他的路旁','創 35:16–19'],['hebron','回到父親以撒那裡','創 35:27'],['beersheba','下埃及前獻祭， 上帝說「不要怕下埃及去」','創 46:1–4'],['goshen','全家七十人下埃及，住在歌珊','創 46:27–28；47:27']]}};
+jacob:{name:'雅各',c:'blue',stops:[['beersheba','離開別是巴往哈蘭去','創 28:10','約 77 歲'],['bethel','夢見梯子，把那地方叫作伯特利','創 28:12–19','約 77 歲'],['haran','在舅舅拉班家二十年，娶利亞、拉結','創 29–31 章','77–97 歲'],['gilead','拉班在基列山追上，立石堆為證','創 31:23, 44–48','97 歲'],['peniel','與那人摔跤到黎明，改名以色列','創 32:24–30','97 歲'],['shechem','買了一塊地，築壇','創 33:18–20','97–108 歲之間'],['bethel','回伯特利築壇， 上帝再確認他名叫以色列','創 35:1–15','97–108 歲之間'],['bethlehem','拉結生便雅憫時死了，葬在往以法他的路旁','創 35:16–19','97–108 歲之間'],['hebron','回到父親以撒那裡','創 35:27','97–108 歲之間'],['beersheba','下埃及前獻祭， 上帝說「不要怕下埃及去」','創 46:1–4','130 歲'],['goshen','全家七十人下埃及，住在歌珊','創 46:27–28；47:27','130 歲']]}};
 const MAPS={big:{lon0:29,lon1:49,lat0:29,lat1:38.5,k:32,fs:15},zoom:{lon0:34.2,lon1:36.4,lat0:30.8,lat1:33.7,k:150,fs:12.5}};
 const SEA=[[28,31],[29.9,31.2],[31,31.6],[32.3,31.2],[33.5,31.1],[34.2,31.3],[34.5,31.6],[34.75,32.1],[34.9,32.5],[35.0,32.85],[35.1,33.1],[35.2,33.4],[35.5,33.9],[35.8,34.5],[35.9,35.2],[35.9,35.9],[36.2,36.6],[35.8,36.8],[34.6,36.8],[33,36.2],[32,36.6],[30.5,36.8],[28,37]];
 const WATER=[SEA,[[47.9,30.4],[48.6,29.9],[50,29.4],[50,28],[48.3,28],[47.7,29.3]],[[32.55,29.95],[32.75,29.6],[33.5,28.3],[32.9,28],[32.3,29.3]],[[34.95,29.55],[34.75,28.5],[34.4,28.2],[34.6,29.2]],[[35.4,31.77],[35.58,31.77],[35.6,31.3],[35.45,31.05],[35.38,31.35]]];
@@ -972,7 +1036,7 @@ function renderMap(keepMaps){
   applyV('big');startAnim();
   if(keepMaps)document.querySelectorAll('.map .rt').forEach(p=>p.style.animation='none');
   const people=rp==='all'?Object.keys(RT):[rp];
-  document.getElementById('stops').innerHTML=people.map(p=>`${people.length>1?`<h3 style="color:var(--${RT[p].c})">${RT[p].name}</h3>`:''}`+RT[p].stops.map((st,i)=>`<li><button class="stop${rp===p&&rs===i?' on':''}" ${people.length>1?'':`data-s="${i}"`} style="--c:var(--${RT[p].c})"><span class="n">${i+1}</span><span><b>${PL[st[0]][0]}</b><span>${st[1]}</span><small>${st[2]}</small></span></button></li>`).join('')).join('');
+  document.getElementById('stops').innerHTML=people.map(p=>`${people.length>1?`<h3 style="color:var(--${RT[p].c})">${RT[p].name}</h3>`:''}`+RT[p].stops.map((st,i)=>`<li><button class="stop${rp===p&&rs===i?' on':''}" ${people.length>1?'':`data-s="${i}"`} style="--c:var(--${RT[p].c})"><span class="n">${i+1}</span><span><b>${PL[st[0]][0]}</b><span>${st[1]}</span><small>${st[2]}${st[3]?' · 雅各 '+st[3]:''}</small></span></button></li>`).join('')).join('');
 }
 /* 地圖縮放：改 viewBox；字和線只放大一半的倍率，擠在一起的地名才分得開 */
 const VW={big:null},ZMAX=12;
@@ -1068,8 +1132,89 @@ render();
 
 })();
 
+// ---------- 雅各生平年表（只根據經文數字） ----------
+(()=>{
+const PH={home:['在迦南父親家','gold',0,77],haran:['在哈蘭拉班家','blue',77,97],canaan:['回到迦南','green',97,130],egypt:['在埃及','violet',130,147]};
+const KIND={t:['經文直接寫出年齡','f'],c:['由經文數字推算',''],u:['經文沒有寫年齡','q']};
+// a=年齡（null＝不詳）, lab=顯示, ph=階段, k=t/c/u, t=標題, ref=經文, d=說明, how=怎麼算
+const EV=[
+{a:0,lab:'出生',ph:'home',k:'t',t:'以掃和雅各出生',ref:'創 25:24–26',d:'雙胞胎，以掃先出來，雅各手抓住以掃的腳跟。「利百加生下兩個兒子的時候，以撒年正六十歲」（25:26）。',how:'經文直接寫出以撒的年齡，所以雅各的年齡加 60 就是以撒的年齡。'},
+{a:15,lab:'15 歲',ph:'home',k:'c',t:'祖父亞伯拉罕過世',ref:'創 25:7–10',d:'「亞伯拉罕一生的年日是一百七十五歲」（25:7）。以撒、以實瑪利把他埋葬在麥比拉洞。經文把這件事寫在雙胞胎出生之前，但按數字算，那時以掃和雅各已經 15 歲。',how:'亞伯拉罕 100 歲生以撒（21:5），以撒 60 歲生雅各（25:26），所以雅各出生時亞伯拉罕 160 歲；175 − 160 = 15。'},
+{a:null,lab:'年齡不詳',sm:'經文沒有寫',ph:'home',k:'u',t:'以掃用長子的名分換紅豆湯',ref:'創 25:27–34',d:'「兩個孩子漸漸長大」（25:27）之後，以掃從田野回來累昏了，雅各要他先把長子的名分賣給他，以掃起了誓，吃了喝了就走了。「這就是以掃輕看了他長子的名分」（25:34）。',how:'經文沒有寫當時幾歲，只知道是兩人長大以後；經文把這件事記在以掃 40 歲娶妻（26:34）之前。'},
+{a:40,lab:'40 歲',ph:'home',k:'t',t:'以掃娶了兩個赫人女子',ref:'創 26:34–35',d:'「以掃四十歲的時候娶了赫人比利的女兒猶滴，與赫人以倫的女兒巴實抹為妻。她們常使以撒和利百加心裡愁煩。」',how:'經文直接寫出以掃的年齡；雅各和他是雙胞胎，同歲。'},
+{a:77,lab:'約 77 歲',ph:'home',k:'c',t:'得了父親的祝福，逃往哈蘭',ref:'創 27:1–28:5',d:'以撒年老、眼睛昏花，雅各假扮以掃得了祝福。以掃說：「為我父親居喪的日子近了，到那時候，我要殺我的兄弟雅各」（27:41）。利百加叫雅各逃到哈蘭她哥哥拉班那裡。',how:'經文沒有寫這時幾歲。雅各離開別是巴之後，經文接著就寫他到哈蘭（28:10；29:1），中間沒有提到別的停留，所以和到哈蘭算同一年。'},
+{a:77,lab:'約 77 歲',ph:'home',k:'c',t:'在伯特利夢見梯子',ref:'創 28:10–22',d:'往哈蘭的路上，夢見一個梯子立在地上，梯子的頭頂著天。YHVH 應許把這地賜給他和他的後裔，並且說「我也與你同在」（28:15）。雅各把那地方叫作伯特利，並且許願。',how:'在往哈蘭的路上，和到哈蘭算同一年。'},
+{a:77,lab:'77 歲',ph:'haran',k:'c',t:'到哈蘭，住在舅舅拉班家',ref:'創 29:1–14',d:'在井旁遇見拉結，就住在拉班家，為拉班牧羊。',how:'雅各 130 歲時約瑟 39 歲（47:9；41:46；45:6），所以約瑟出生時雅各 91 歲。約瑟出生時雅各剛服事滿 14 年（30:25；31:41）；91 − 14 = 77。'},
+{a:84,lab:'84 歲',ph:'haran',k:'c',t:'娶利亞和拉結',ref:'創 29:15–30',d:'為拉結服事了七年，「他因為深愛拉結，就看這七年如同幾天」（29:20）。拉班卻先把利亞給他；滿了七日又把拉結給他，他就再服事七年。',how:'到哈蘭之後先服事七年才成親：77 + 7 = 84。'},
+{a:84,a2:91,lab:'84–91 歲',ph:'haran',k:'c',t:'十一個兒子和女兒底拿出生',ref:'創 29:31–30:24',d:'利亞生流便、西緬、利未、猶大、以薩迦、西布倫和女兒底拿；辟拉生但、拿弗他利；悉帕生迦得、亞設；最後拉結生約瑟。',how:'這些兒女都生在成親之後、約瑟出生之前的七年裡。'},
+{a:91,lab:'91 歲',ph:'haran',k:'c',t:'拉結生約瑟',ref:'創 30:22–25',d:'「 上帝顧念拉結，應允了她，使她能生育」（30:22）。約瑟出生後，雅各就向拉班要求回本鄉本土去，後來又為羊群多留了六年。',how:'雅各 130 歲時約瑟 39 歲：130 − 39 = 91。'},
+{a:97,lab:'97 歲',ph:'haran',k:'c',t:'離開拉班，在基列山立約',ref:'創 31 章',d:'雅各帶著全家和牲畜離開。拉班在基列山追上，兩人立石堆為證。雅各說：「我這二十年在你家裡，為你的兩個女兒服事你十四年，為你的羊群服事你六年」（31:41）。',how:'77 歲到哈蘭，加上 20 年：77 + 20 = 97。'},
+{a:97,lab:'97 歲',ph:'canaan',k:'c',t:'在雅博渡口摔跤，改名以色列',ref:'創 32:22–32',d:'夜裡只剩下雅各一人，有一個人來和他摔跤，直到黎明。那人說：「你的名不要再叫雅各，要叫以色列；因為你與 上帝與人較力，都得了勝」（32:28）。雅各給那地方起名叫毘努伊勒。',how:'離開拉班之後、見以掃的前一夜。'},
+{a:97,lab:'97 歲',ph:'canaan',k:'c',t:'與以掃重逢',ref:'創 33:1–16',d:'「以掃跑來迎接他，將他抱住，又摟著他的頸項，與他親嘴，兩個人就哭了」（33:4）。兄弟從雅各逃往哈蘭算起，大約分開了 20 年。',how:'離開拉班之後不久。按經文數字，雅各約 77 歲逃走、97 歲回來，中間是在拉班家的 20 年。'},
+{a:97,a2:108,lab:'97–108 歲',sm:'之間',ph:'canaan',k:'u',t:'住在疏割和示劍；底拿的事',ref:'創 33:17–34:31',d:'雅各在疏割蓋房子、搭棚，又到示劍城買了一塊地、築了一座壇。示劍玷辱了底拿，西緬和利未殺了那城的男丁。',how:'經文沒有寫年齡，只知道在與以掃重逢之後、約瑟 17 歲被賣之前。'},
+{a:97,a2:108,lab:'97–108 歲',sm:'之間',ph:'canaan',k:'u',t:'回伯特利築壇',ref:'創 35:1–15',d:'雅各叫全家除掉外邦神像、自潔、更換衣裳，上伯特利去築壇。 上帝再次說他的名要叫以色列，並且重申賜地的應許。',how:'經文沒有寫年齡，次序在示劍之後。'},
+{a:97,a2:108,lab:'97–108 歲',sm:'之間',ph:'canaan',k:'u',t:'拉結生便雅憫時去世',ref:'創 35:16–20',d:'「拉結死了，葬在以法他的路旁；以法他就是伯利恆。雅各在她的墳上立了一統碑，就是拉結的墓碑，到今日還在」（35:19–20）。',how:'經文沒有寫年齡。約瑟 17 歲作夢時已經有十一個兄弟（37:9），所以是在那之前。'},
+{a:97,a2:108,lab:'97–108 歲',sm:'之間',ph:'canaan',k:'u',t:'回到希伯崙父親以撒那裡',ref:'創 35:27',d:'「雅各來到他父親以撒那裡，到了基列亞巴的幔利，乃是亞伯拉罕和以撒寄居的地方；基列亞巴就是希伯崙。」',how:'經文沒有寫年齡。約瑟 17 歲時雅各已經住在希伯崙谷（37:14）。'},
+{a:108,lab:'108 歲',ph:'canaan',k:'c',t:'約瑟被哥哥們賣到埃及',ref:'創 37 章',d:'「約瑟十七歲與他哥哥們一同牧羊」（37:2）。哥哥們把他賣給往埃及去的商人，又把染了血的彩衣帶給父親。雅各以為約瑟被惡獸吃了，為他悲哀了許多日子。',how:'約瑟出生時雅各 91 歲：91 + 17 = 108。'},
+{a:120,lab:'120 歲',ph:'canaan',k:'c',t:'父親以撒過世，以掃和雅各一同埋葬他',ref:'創 35:28–29',d:'「以撒共活了一百八十歲」（35:28），「他兩個兒子以掃、雅各把他埋葬了」（35:29）。經文把這件事寫在約瑟的故事之前，但按數字算，是在約瑟被賣之後 12 年。',how:'以撒 60 歲生雅各：180 − 60 = 120。'},
+{a:130,lab:'130 歲',ph:'egypt',k:'t',t:'全家下埃及，見法老',ref:'創 46:1–47:10',d:'在別是巴獻祭， 上帝說「不要害怕下埃及去」（46:3）。在歌珊和約瑟重逢，父子分開了 22 年。雅各對法老說：「我寄居在世的年日是一百三十歲」（47:9）。',how:'經文直接寫出年齡。約瑟 17 歲被賣，這時 39 歲：39 − 17 = 22 年。'},
+{a:147,lab:'147 歲',ph:'egypt',k:'t',t:'在埃及過世，葬在麥比拉洞',ref:'創 47:28–50:14',d:'「雅各住在埃及地十七年，雅各平生的年日是一百四十七歲」（47:28）。臨終前祝福十二個兒子，吩咐把他葬在迦南的麥比拉洞，和亞伯拉罕、撒拉、以撒、利百加、利亞在一處（49:29–31）。',how:'經文直接寫出年齡。'}
+];
+let sel=0;
+const W=1000,X0=30,X1=970,sx=a=>X0+a/147*(X1-X0);
+function bar(){
+  let s=`<svg viewBox="0 0 ${W} 112" role="img" aria-label="雅各 0 到 147 歲的年齡軸">`;
+  Object.values(PH).forEach(([n,c,a,b])=>{
+    s+=`<rect class="band" x="${sx(a)}" y="50" width="${sx(b)-sx(a)}" height="26" style="fill:var(--${c})"/><rect x="${sx(a)}" y="50" width="${sx(b)-sx(a)}" height="4" style="fill:var(--${c})"/>`;
+    s+=`<text class="ph" x="${(sx(a)+sx(b))/2}" y="70" text-anchor="middle">${b-a<25?n.replace(/^在/,''):n}</text>`;
+    s+=`<text class="yr" x="${(sx(a)+sx(b))/2}" y="94" text-anchor="middle">${b-a} 年</text>`;
+  });
+  const seen=new Set();
+  EV.forEach((e,i)=>{
+    if(e.a===null||e.a2||seen.has(e.a))return;seen.add(e.a);
+    const on=EV[sel].a===e.a&&!EV[sel].a2;
+    s+=`<g class="jm${e.k==='t'?' f':''}${on?' sel':''}" data-i="${i}" style="--c:var(--${PH[e.ph][1]})" tabindex="0" role="button" aria-label="${e.lab}：${e.t}"><rect x="${sx(e.a)-16}" y="6" width="32" height="50" fill="transparent"/><text x="${sx(e.a)}" y="22" text-anchor="middle">${e.a}</text><line x1="${sx(e.a)}" y1="27" x2="${sx(e.a)}" y2="45" stroke="var(--muted)" stroke-width="1"/><circle cx="${sx(e.a)}" cy="52" r="6.5"/></g>`;
+  });
+  return s+`<text class="yr" x="${X0}" y="108">歲數（圓點可以點）</text></svg>`;
+}
+function list(){
+  let s='',ph='';
+  EV.forEach((e,i)=>{
+    if(e.ph!==ph){ph=e.ph;const p=PH[ph];s+=`<li class="phh" style="--c:var(--${p[1]})"><i></i>${p[0]}（${p[2]}–${p[3]} 歲）</li>`}
+    s+=`<li><button class="ev${i===sel?' sel':''}" data-je="${i}" style="--c:var(--${PH[e.ph][1]})"><span class="ag">${e.lab}${e.sm?`<small>${e.sm}</small>`:''}</span><span class="dt ${KIND[e.k][1]}"></span><span class="tx"><b>${e.t}</b><small>${e.ref}</small></span></button></li>`;
+  });
+  return s;
+}
+function info(){
+  const e=EV[sel],exact=e.a!==null&&!e.a2&&!/約/.test(e.lab);
+  const others=[];
+  if(e.a!==null&&!e.a2){
+    const ap=/約/.test(e.lab)?'約 ':'';
+    if(e.a>0&&e.a+60<=180)others.push(`父親以撒 ${ap}${e.a+60} 歲`);
+    if(e.a===0)others.push('父親以撒 60 歲');
+    if(e.a>91&&e.a-91<=110)others.push(`約瑟 ${e.a-91} 歲`);
+  }
+  document.getElementById('jinfo').innerHTML=`<h3>${e.t}</h3>
+<div class="meta"><span class="badge src" style="--bc:var(--${PH[e.ph][1]})">${e.a===0?'出生':e.a===null?e.lab:e.lab+(e.sm?e.sm:'')}</span><span class="badge">${e.ref}</span>${exact?`<span class="badge">創世 ${2108+e.a} 年</span>`:''}<span class="badge">${KIND[e.k][0]}</span></div>
+<p>${e.d}</p>
+<h4>年齡怎麼來的</h4><p>${e.how}</p>
+${others.length?`<h4>同一時間</h4><p>${others.join('、')}。</p>`:''}`;
+}
+function render(){document.getElementById('jbar').innerHTML=bar();document.getElementById('jevs').innerHTML=list();info()}
+const root=document.getElementById('view-jacob');
+function pick(i,scroll){sel=i;render();if(scroll){const el=root.querySelector('.ev.sel');if(el)el.scrollIntoView({block:'nearest'})}}
+root.addEventListener('click',ev=>{
+  const m=ev.target.closest('.jm');if(m){pick(+m.dataset.i,true);return}
+  const b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.je!==undefined){pick(+b.dataset.je);return}
+  if(b.dataset.jgo==='route'){document.getElementById('tab-route').click();window.scrollTo(0,0)}
+});
+root.addEventListener('keydown',ev=>{const m=ev.target.closest('.jm');if(m&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();pick(+m.dataset.i,true)}});
+render();
+})();
+
 // ---------- 分頁 ----------
-const tabs=[["tab-tree","view-tree","tree"],["tab-tl","view-tl","timeline"],["tab-ye","view-ye","yeshua"],["tab-route","view-route","route"]];
+const tabs=[["tab-tree","view-tree","tree"],["tab-tl","view-tl","timeline"],["tab-ye","view-ye","yeshua"],["tab-route","view-route","route"],["tab-jacob","view-jacob","jacob"]];
 function showTab(t){
   tabs.forEach(([t2,v2,h2])=>{document.getElementById(t2).setAttribute("aria-selected",t2===t);document.getElementById(v2).hidden=t2!==t;
     if(t2===t)try{history.replaceState(null,"","#"+h2)}catch(e){}});
