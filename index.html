@@ -397,7 +397,7 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
       <span><i style="background:var(--shem)"></i>閃 Shem（26 族）</span>
       <span><i style="background:var(--ham)"></i>含 Ham（30 族）</span>
       <span><i style="background:var(--japheth)"></i>雅弗 Japheth（14 族）</span>
-      <span><i style="background:var(--gold);height:4px"></i>通往亞伯蘭的主線</span>
+      <span><i style="background:var(--gold);height:4px"></i>通往亞伯蘭、以撒、雅各的主線</span>
       <span>實心圓點＝還有後代可展開</span>
     </div>
     <div class="main">
@@ -569,7 +569,9 @@ const DATA=P("挪亞","Noah","נֹחַ","創 5:29–9:29","拉麥給他起名叫
        P("西鹿","Serug","שְׂרוּג","創 11:20–23","","",{"line":true,"kind":"個人","age":{"beget":30,"total":230,"am":"1819–2049"}},[
         P("拿鶴","Nahor","נָחוֹר","創 11:22–25","在創世記 11 章這份家譜中，拿鶴的壽數最短，只有 148 歲。","",{"line":true,"kind":"個人","dup":"西鹿之子","age":{"beget":29,"total":148,"am":"1849–1997"}},[
          P("他拉","Terah","תֶּרַח","創 11:24–32","約書亞記 24:2：「亞伯拉罕和拿鶴的父親他拉，住在大河那邊事奉別神」。他拉共活了 205 歲，死在哈蘭（11:32）。","",{"line":true,"kind":"個人","age":{"beget":70,"total":205,"am":"1878–2083"}},[
-          P("亞伯蘭","Abram","אַבְרָם","創 11:26–32；12 章起","亞伯蘭出哈蘭的時候 75 歲（12:4），一生活了 175 歲（25:7）。","",{"line":true,"kind":"個人","age":{"beget":100,"total":175,"am":"1948–2123"}}),
+          P("亞伯蘭","Abram","אַבְרָם","創 11:26–32；12 章起","亞伯蘭出哈蘭的時候 75 歲（12:4），一生活了 175 歲（25:7）。","",{"line":true,"kind":"個人","age":{"beget":100,"total":175,"am":"1948–2123"}},[
+           P("以撒","Isaac","יִצְחָק","創 21:1–7；25:19–26；35:28–29","亞伯拉罕一百歲的時候生了以撒（21:5）。以撒六十歲的時候，利百加生了以掃和雅各（25:26）。以撒共活了 180 歲（35:28）。","",{"line":true,"kind":"個人","age":{"beget":60,"total":180,"am":"2048–2228"}},[
+            P("雅各","Jacob","יַעֲקֹב","創 25:24–26；32:28；47:28","以撒和利百加所生的雙生子之一，哥哥是以掃（25:24–26）。 上帝給他改名叫以色列（32:28；35:10）。他的十二個兒子就是以色列的十二支派（49:28）。雅各一生活了 147 歲（47:28）。","",{"line":true,"kind":"個人","age":{"total":147,"am":"2108–2255"}})])]),
           P("拿鶴","Nahor","נָחוֹר","創 11:26–29；24:10","娶了哈蘭的女兒密迦（11:29）。亞伯拉罕的僕人為以撒娶妻時，到了「拿鶴的城」（24:10）。","",{"kind":"個人","dup":"他拉之子"}),
           P("哈蘭","Haran","הָרָן","創 11:26–28","在他父親他拉之先死在本地迦勒底的吾珥（11:28）。","",{"kind":"個人"},[
            P("羅得","Lot","לוֹט","創 11:27,31；13–19 章","他的兩個兒子摩押與便．亞米，成為摩押人和亞捫人的始祖（19:37–38）。大衛的曾祖母路得就是摩押女子（得 1:4；4:21–22）。","",{"kind":"個人"}),
@@ -680,8 +682,8 @@ function showPanel(d){
   const x=d.data,a=x.age;
   const path=d.ancestors().reverse().map(n=>n.data.zh).join(" → ");
   const br=d.branch?`<span class="chip b" style="background:${branchColor(d.branch)}">${BR[d.branch]}</span>`:"";
-  const ln=x.line&&d.depth>0?`<span class="chip b" style="background:var(--gold)">亞伯蘭主線</span>`:"";
-  const ages=a?`<dl class="age"><div><dt>生子時</dt><dd>${a.beget} 歲</dd></div><div><dt>享壽</dt><dd>${a.total} 歲</dd></div><div><dt>創世紀年</dt><dd>${a.am}</dd></div></dl>`:"";
+  const ln=x.line&&d.depth>0?`<span class="chip b" style="background:var(--gold)">主線</span>`:"";
+  const ages=a?`<dl class="age">${a.beget?`<div><dt>生子時</dt><dd>${a.beget} 歲</dd></div>`:""}<div><dt>享壽</dt><dd>${a.total} 歲</dd></div><div><dt>創世紀年</dt><dd>${a.am}</dd></div></dl>`:"";
   const kids=d._children?`<h3>後代（${d._children.length}）</h3><div class="kids">${d._children.map(c=>`<button data-id="${c.id}">${esc(c.data.zh)}</button>`).join("")}</div>`:"";
   panel.innerHTML=`<div class="kicker">${esc(path)}</div>
     <div class="names"><h2>${esc(x.zh)}</h2><span class="he" lang="he">${esc(x.he)}</span><span class="en">${esc(x.en)}</span></div>
@@ -724,7 +726,7 @@ document.getElementById("collapse").onclick=()=>{stopPlay();setDepth(2);update(r
 document.getElementById("path").onclick=()=>{
   stopPlay();ALL.forEach(d=>{d.children=d.data.line?d._children:null;});
   const ab=ALL.find(d=>d.data.en==="Abram");selected=ab;update(root);fit(700);showPanel(ab);
-  gen.textContent="挪亞 → 閃 → … → 他拉 → 亞伯蘭（十代）";
+  gen.textContent="挪亞 → 閃 → … → 他拉 → 亞伯蘭（十代）→ 以撒 → 雅各";
 };
 document.getElementById("fit").onclick=()=>fit(500);
 
@@ -742,7 +744,6 @@ let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>
 
 // ---------- 時間軸 ----------
 const TL=ALL.filter(d=>d.data.age).map(d=>{const [b,e]=d.data.age.am.split("–").map(Number);return {zh:d.data.zh,en:d.data.en,b,e,total:d.data.age.total,node:d};});
-TL.push({zh:"以撒",en:"Isaac",b:2048,e:2228,total:180,node:null},{zh:"雅各",en:"Jacob",b:2108,e:2255,total:147,node:null});
 const EV=[{y:1656,t:"洪水"},{y:2023,t:"亞伯蘭離開哈蘭"}];
 const tlSvg=d3.select("#tl"),RH=30,TOP=46,W=1000,LEFT=96,RIGHT=24;
 const H=TOP+TL.length*RH+30;
