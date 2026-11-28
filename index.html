@@ -377,7 +377,7 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
   <p class="tabs-hint">點下面的卡片，切換不同的看法：</p>
   <div class="tabs" role="tablist">
     <button role="tab" id="tab-tree" aria-selected="true" aria-controls="view-tree"><b>分枝圖</b><span>挪亞的三個兒子分出列國（創 10–11）</span></button>
-    <button role="tab" id="tab-tl" aria-selected="false" aria-controls="view-tl"><b>壽數時間軸</b><span>挪亞到亞伯拉罕，誰和誰同時在世</span></button>
+    <button role="tab" id="tab-tl" aria-selected="false" aria-controls="view-tl"><b>壽數時間軸</b><span>挪亞到雅各，誰和誰同時在世</span></button>
     <button role="tab" id="tab-ye" aria-selected="false" aria-controls="view-ye"><b>Yeshua 族譜</b><span>馬太與路加兩份族譜，從亞當到 Yeshua</span></button>
     <button role="tab" id="tab-route" aria-selected="false" aria-controls="view-route"><b>遷移路線</b><span>亞伯蘭、以撒、雅各走過的地方</span></button>
     <button role="tab" id="tab-jacob" aria-selected="false" aria-controls="view-jacob"><b>雅各生平年表</b><span>從出生到 147 歲，每件事發生時他幾歲</span></button>
@@ -414,12 +414,12 @@ dl.age dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
     <div class="tl-card">
       <div class="tl-ctrl">
         <span class="tl-year" id="tlYear"></span>
-        <input type="range" id="tlRange" min="1000" max="2200" step="1" value="1996" aria-label="創世紀年">
+        <input type="range" id="tlRange" min="1000" max="2300" step="1" value="1996" aria-label="創世紀年">
         <button class="btn" id="tlPlay">▶ 播放年份</button>
       </div>
       <div class="alive" id="alive"></div>
       <div class="tl-scroll"><svg id="tl" class="tl" aria-label="閃族主線壽數時間軸"></svg></div>
-      <p class="note">年份為「創世紀年」（Anno Mundi），由創世記 5 章與 11 章記載的生子年歲推算而來。</p>
+      <p class="note">年份為「創世紀年」（Anno Mundi），由創世記 5 章與 11 章記載的生子年歲推算而來；以撒、雅各依創 21:5（亞伯拉罕 100 歲生以撒）、25:26（以撒 60 歲生雅各）、35:28（以撒享壽 180 歲）、47:28（雅各享壽 147 歲）。</p>
     </div>
     <div class="facts">
       <div class="fact"><strong>挪亞看見亞伯蘭</strong><p>挪亞死於創世 2006 年，那時亞伯蘭 58 歲。從挪亞到亞伯蘭的十代人，大多同時在世。</p></div>
@@ -742,17 +742,18 @@ let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>
 
 // ---------- 時間軸 ----------
 const TL=ALL.filter(d=>d.data.age).map(d=>{const [b,e]=d.data.age.am.split("–").map(Number);return {zh:d.data.zh,en:d.data.en,b,e,total:d.data.age.total,node:d};});
+TL.push({zh:"以撒",en:"Isaac",b:2048,e:2228,total:180,node:null},{zh:"雅各",en:"Jacob",b:2108,e:2255,total:147,node:null});
 const EV=[{y:1656,t:"洪水"},{y:2023,t:"亞伯蘭離開哈蘭"}];
 const tlSvg=d3.select("#tl"),RH=30,TOP=46,W=1000,LEFT=96,RIGHT=24;
 const H=TOP+TL.length*RH+30;
 tlSvg.attr("viewBox",`0 0 ${W} ${H}`);
-const xs=d3.scaleLinear().domain([1000,2200]).range([LEFT,W-RIGHT]);
-tlSvg.append("g").attr("class","ax").attr("transform",`translate(0,${H-24})`).call(d3.axisBottom(xs).tickValues(d3.range(1000,2201,100)).tickFormat(d3.format("d")));
+const xs=d3.scaleLinear().domain([1000,2300]).range([LEFT,W-RIGHT]);
+tlSvg.append("g").attr("class","ax").attr("transform",`translate(0,${H-24})`).call(d3.axisBottom(xs).tickValues(d3.range(1000,2301,100)).tickFormat(d3.format("d")));
 const evG=tlSvg.append("g");
 EV.forEach((e,i)=>{evG.append("line").attr("x1",xs(e.y)).attr("x2",xs(e.y)).attr("y1",TOP-8-(i%2)*14).attr("y2",H-24).style("stroke","var(--muted)").attr("stroke-dasharray","3 4").attr("stroke-width",1);
   evG.append("text").attr("x",xs(e.y)+4).attr("y",TOP-12-(i%2)*14).text(e.t).style("fill","var(--muted)").style("font-size","12px");});
-const rows=tlSvg.append("g").selectAll("g").data(TL).join("g").attr("transform",(d,i)=>`translate(0,${TOP+i*RH})`).style("cursor","pointer")
-  .on("click",(e,d)=>{document.getElementById("tab-tree").click();goTo(d.node);});
+const rows=tlSvg.append("g").selectAll("g").data(TL).join("g").attr("transform",(d,i)=>`translate(0,${TOP+i*RH})`).style("cursor",d=>d.node?"pointer":"default")
+  .on("click",(e,d)=>{if(!d.node)return;document.getElementById("tab-tree").click();goTo(d.node);});
 rows.append("text").attr("x",LEFT-10).attr("y",RH/2).attr("dy","0.35em").attr("text-anchor","end").text(d=>d.zh).style("font-weight",700);
 const bars=rows.append("rect").attr("class","tl-bar").attr("x",d=>xs(d.b)).attr("y",5).attr("height",RH-10).attr("rx",4)
   .style("fill",d=>d.en==="Abram"?"var(--gold)":d.en==="Noah"?"var(--noah)":"var(--shem)").attr("width",d=>xs(d.e)-xs(d.b));
@@ -771,8 +772,8 @@ setYear(+rng.value);
 let tlTimer=null;const tlBtn=document.getElementById("tlPlay");
 tlBtn.onclick=()=>{
   if(tlTimer){clearInterval(tlTimer);tlTimer=null;tlBtn.textContent="▶ 播放年份";return;}
-  let y=+rng.value>=2180?1040:+rng.value;tlBtn.textContent="■ 停止";
-  tlTimer=setInterval(()=>{y+=4;if(y>2200){clearInterval(tlTimer);tlTimer=null;tlBtn.textContent="▶ 播放年份";return;}rng.value=y;setYear(y);},reduce?120:40);
+  let y=+rng.value>=2280?1040:+rng.value;tlBtn.textContent="■ 停止";
+  tlTimer=setInterval(()=>{y+=4;if(y>2300){clearInterval(tlTimer);tlTimer=null;tlBtn.textContent="▶ 播放年份";return;}rng.value=y;setYear(y);},reduce?120:40);
 };
 function growBars(){if(reduce)return;bars.attr("width",0).transition().delay((d,i)=>i*70).duration(700).attr("width",d=>xs(d.e)-xs(d.b));}
 
